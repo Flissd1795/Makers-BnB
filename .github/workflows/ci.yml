@@ -16,6 +16,7 @@ jobs:
       postgres:
         image: postgres:latest
         env:
+          POSTGRES_USER: runner
           POSTGRES_DB: BnB_DB_test
           POSTGRES_HOST_AUTH_METHOD: trust
         ports:
@@ -36,9 +37,13 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      - name: Install Chrome with Playwright
+        run: |
+          playwright install-deps
+          playwright install
       - name: Set up test database
         run: |
-          psql -h localhost -U postgres BnB_DB_test < seeds/makers_bnb.sql
+          psql -h localhost BnB_DB_test < seeds/makers_bnb.sql
       - name: Run tests
         run: |
           pytest tests/
