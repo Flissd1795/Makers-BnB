@@ -1,4 +1,4 @@
-class Users:
+class AvailableDate:
     def __init__(self, id, home_id, date_available):
         self.id = id 
         self.home_id = home_id
@@ -8,4 +8,4 @@ class Users:
         return self.__dict__ == other.__dict__
     
     def __repr__(self):
-        return f"User{self.id}, {self.home_id}, {self.date_available})"
+        return f"AvailableDate({self.id}, {self.home_id}, {self.date_available})"

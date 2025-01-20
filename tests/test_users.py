@@ -27,3 +27,23 @@ def test_stringifying():
     user = User(1, 'test_username', 'test_email', 'test_password')
     assert str(user) == "User(1, test_username, test_email, test_password)"
 
+def test_is_valid():
+    user = User(1, 'test_username', 'test_email', 'test_password')
+    assert user.is_valid() == True
+
+def test_is_not_valid():
+    user = User(1, '', 'test_email', 'test_password')
+    assert user.is_valid() == False
+
+def test_generate_errors():
+    user = User(1, '', 'test_email', 'test_password')
+    assert user.generate_errors() == ['Username is required']
+
+    user = User(1, 'test_username', '', 'test_password')
+    assert user.generate_errors() == ['Email is required']
+
+    user = User(1, 'test_username', 'test_email', '')
+    assert user.generate_errors() == ['Password is required']
+
+    user = User(1, '', '', '')
+    assert user.generate_errors() == ['Username is required', 'Email is required', 'Password is required']

@@ -1,48 +1,35 @@
 from lib.homes import Home
-
 """
-Constructs with an id, username, email and password
+Constructs with an id, title, description, location, price_per_night, user_id
 """
-
 def test_constructs():
-    user = User(1, 'test_username', 'test_email', 'test_password')
-    assert user.id == 1
-    assert user.username == 'test_username'
-    assert user.email == 'test_email'
-    assert user.password == 'test_password'
-    
+    home = Home(1, 'test_title', 'test_description', 'test_location', 'test_price_per_night', 'test_user_id')
+    assert home.id == 1
+    assert home.title == 'test_title'
+    assert home.description == 'test_description'
+    assert home.location == 'test_location'
+    assert home.price_per_night == 'test_price_per_night'
+    assert home.user_id == 'test_user_id'
 
 """
-Artists with equal contents are equal
+Homes with equal contents are equal
 """
 def test_compares():
-    user_1 = User(1, 'test_username', 'test_email', 'test_password')
-    user_2 = User(1, 'test_username', 'test_email', 'test_password')
-    assert user_1 == user_2
-
+    home_1 = Home(1, 'test_title', 'test_description', 'test_location', 'test_price_per_night', 'test_user_id')
+    home_2 = Home(1, 'test_title', 'test_description', 'test_location', 'test_price_per_night', 'test_user_id')
+    assert home_1 == home_2
 """
-Artists can be represented as strings
+Homes can be represented as strings
 """
 def test_stringifying():
-    user = User(1, 'test_username', 'test_email', 'test_password')
-    assert str(user) == "User(1, test_username, test_email, test_password)"
+    home = Home(1, 'test_title', 'test_decription', 'test_location', 'test_price_per_night', 'test_user_id')
+    assert str(home) == "Home(1, test_title, test_description, test_location, test_price_per_night, test_user_id)"
 
 
 
-class Homes:
-    def __init__(self, id, title, description, location, price_per_night, user_id):
-        self.id = id 
-        self.title = title
-        self.description = description
-        self.location = location
-        self.price_per_night = price_per_night
-        self.user_id = user_id
-    
-    def __eq__(self, other):
-        return self.__dict__ == other.__dict__
-    
-    def __repr__(self):
-        return f"User{self.id}, {self.title}, {self.description}, {self.location}, {self.price_per_night}, {self.user_id})"
-    
+
+
+
+
 
 
