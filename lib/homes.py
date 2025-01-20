@@ -11,7 +11,7 @@ class Home:
         return self.__dict__ == other.__dict__
     
     def __repr__(self):
-        return f"User{self.id}, {self.title}, {self.description}, {self.location}, {self.price_per_night}, {self.user_id})"
+        return f"Home({self.id}, {self.title}, {self.description}, {self.location}, {self.price_per_night}, {self.user_id})"
     
 
 

@@ -10,7 +10,7 @@ class User:
         return self.__dict__ == other.__dict__
     
     def __repr__(self):
-        return f'Login({self.id}, {self.username}, {self.email})'
+        return f'User({self.id}, {self.username}, {self.email}, {self.password})'
     
     def is_valid(self):
         if self.username == None or self.username == "":
