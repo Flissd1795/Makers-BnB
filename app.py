@@ -1,9 +1,20 @@
 import os
-from flask import Flask, request, render_template
+from lib.users import User
+from lib.users_repository import UserRepository
+from flask import Flask, request, render_template, session
 from lib.database_connection import get_flask_database_connection
 
 # Create a new Flask app
 app = Flask(__name__)
+
+def start_session():
+    connection = get_flask_database_connection(app)
+    email = request.form['email']
+    repository = UserRepository(connection)
+    user_as_dict = repository.find_user(email)
+    user_as_object = User(user_as_dict['id'], user_as_dict['username'], user_as_dict['email'], user_as_dict['password'], user_as_dict['picture_id'])
+    session['users_id'] = user_as_object.id
+    session['username'] = user_as_object.username
 
 # == Your Routes Here ==
 

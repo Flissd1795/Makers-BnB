@@ -1,4 +1,5 @@
 from lib.users import User
+import hashlib
 
 class UserRepository:
     def __init__(self, connection):
@@ -17,21 +18,45 @@ class UserRepository:
     '''
     Add a new user to the users database
     '''
-    def create_user(self, user):
+    def create_user(self, username, email, password, picture_id):
+        binary_password = password.encode("utf-8")
+        hashed_password = hashlib.sha256(binary_password).hexdigest()
         self._connection.execute(
-            "INSERT INTO users (username, email, password) VALUES (%s, %s, %s)",
-            [user.username, user.email, user.password]
-        )
+            'INSERT INTO users (username, email, password, picture_id) VALUES (%s, %s, %s, %s)',
+            [username, email, hashed_password, picture_id])
+        return None
+    # def verify_password(self, email, password):
+    def check_password(self, email, password_attempt):
+        # Hash the password attempt
+        binary_password_attempt = password_attempt.encode("utf-8")
+        hashed_password_attempt = hashlib.sha256(binary_password_attempt).hexdigest()
+
+        # Check whether there is a user in the database with the given email
+        # and a matching password hash, using a SELECT statement.
+        rows = self._connection.execute(
+            'SELECT * FROM users WHERE email = %s AND password = %s',
+            [email, hashed_password_attempt])
+
+        # If that SELECT finds any rows, the password is correct.
+        return len(rows) > 0
 
     '''
     Find a user on the database based on id (changeable)
     '''
-    def find_user(self, user_id):
-        rows = self._connection.execute("SELECT * FROM albums WHERE id = %s", [user_id])
-        row = rows[0]
-        return User(row["id"], row["username"], row["email"], row["password"])
 
-
-
+    def find_user(self, email):
+        result = self._connection.execute('SELECT * FROM users WHERE email = %s', [email])
+        if result:
+            return result[0]
+        else:
+            return None
+        
+    def get_username(self, id):
+        result = self._connection.execute('SELECT username FROM users WHERE id = %s', [id])
+        if result:
+            return result[0]
+        else:
+            return None
+        
 
 
