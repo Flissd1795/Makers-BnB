@@ -36,6 +36,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      - name: Set up test database
+        run: |
+          psql -h localhost -U postgres BnB_DB_test < makers_bnb.sql
       - name: Run tests
         run: |
           pytest tests/
