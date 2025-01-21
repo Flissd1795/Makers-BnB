@@ -1,7 +1,7 @@
 from lib.requests import Request
 
 """
-Constructs with an id, home_id, date_available
+Constructs with an id, status, date_submitted, home_id, user_id, start_date, end_date
 """
 
 def test_constructs():
@@ -15,7 +15,7 @@ def test_constructs():
     assert request.end_date == '2000-03-01'
     
 """
-Artists with equal contents are equal
+Requests with equal contents are equal
 """
 def test_compares():
     request_1 = Request('1', 'Unseen', '2000-01-01', '1', '1', '2000-02-01', '2000-03-01')
@@ -23,7 +23,7 @@ def test_compares():
     assert request_1 == request_2
 
 """
-Artists can be represented as strings
+Requests can be represented as strings
 """
 def test_stringifying():
     available_date = Request('1', 'Unseen', '2000-01-01', '1', '1', '2000-02-01', '2000-03-01')

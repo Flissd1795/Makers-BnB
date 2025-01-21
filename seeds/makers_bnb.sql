@@ -41,5 +41,8 @@ CREATE TABLE requests (
     -- UNIQUE (home_id, date_available) 
 );
 
-INSERT INTO users (username, email, password) VALUES ('test_username', 'test@email.com', 'test_password')
-INSERT INTO users (username, email, password) VALUES ('test_username2', 'test2@email.com', 'test_password2')
+INSERT INTO users (username, email, password) VALUES ('test_username', 'test@email.com', 'test_password');
+INSERT INTO users (username, email, password) VALUES ('test_username2', 'test2@email.com', 'test_password2');
+
+INSERT INTO requests (status, date_submitted, home_id, user_id, start_date, end_date) VALUES ('Unseen', '2000-01-01', '1', '1', '2000-02-01', '2000-03-01'); 
+INSERT INTO requests (status, date_submitted, home_id, user_id, start_date, end_date) VALUES ('Confirmed', '2000-01-01', '1', '1', '2000-02-01', '2000-03-01');
