@@ -31,8 +31,16 @@ def test_is_valid():
     user = User(1, 'test_username', 'test_email', 'test_password')
     assert user.is_valid() == True
 
-def test_is_not_valid():
+def test_username_is_not_valid():
     user = User(1, '', 'test_email', 'test_password')
+    assert user.is_valid() == False
+
+def test_email_is_not_valid():
+    user = User(1, 'test_username', '', 'test_password')
+    assert user.is_valid() == False
+
+def test_password_is_not_valid():
+    user = User(1, 'test_username', 'test_email', '')
     assert user.is_valid() == False
 
 def test_generate_errors():
@@ -47,3 +55,4 @@ def test_generate_errors():
 
     user = User(1, '', '', '')
     assert user.generate_errors() == ['Username is required', 'Email is required', 'Password is required']
+

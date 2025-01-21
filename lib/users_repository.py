@@ -18,12 +18,12 @@ class UserRepository:
     '''
     Add a new user to the users database
     '''
-    def create_user(self, username, email, password, picture_id):
+    def create_user(self, username, email, password):
         binary_password = password.encode("utf-8")
         hashed_password = hashlib.sha256(binary_password).hexdigest()
         self._connection.execute(
-            'INSERT INTO users (username, email, password, picture_id) VALUES (%s, %s, %s, %s)',
-            [username, email, hashed_password, picture_id])
+            'INSERT INTO users (username, email, password) VALUES (%s, %s, %s)',
+            [username, email, hashed_password])
         return None
     # def verify_password(self, email, password):
     def check_password(self, email, password_attempt):
