@@ -1,9 +1,9 @@
-DROP TABLE IF EXISTS users;
-DROP SEQUENCE IF EXISTS users_id_seq;
-DROP TABLE IF EXISTS homes;
-DROP SEQUENCE IF EXISTS homes_id_seq;
 DROP TABLE IF EXISTS requests;
 DROP SEQUENCE IF EXISTS requests_id_seq;
+DROP TABLE IF EXISTS homes;
+DROP SEQUENCE IF EXISTS homes_id_seq;
+DROP TABLE IF EXISTS users;
+DROP SEQUENCE IF EXISTS users_id_seq;
 
 CREATE SEQUENCE IF NOT EXISTS users_id_seq;
 
@@ -23,7 +23,7 @@ CREATE TABLE homes (
     location VARCHAR(255),
     price_per_night int,
     user_id int,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE SEQUENCE IF NOT EXISTS requests_id_seq;
@@ -41,5 +41,8 @@ CREATE TABLE requests (
     -- UNIQUE (home_id, date_available) 
 );
 
-INSERT INTO users (username, email, password) VALUES ('test_username', 'test@email.com', 'test_password')
-INSERT INTO users (username, email, password) VALUES ('test_username2', 'test2@email.com', 'test_password2')
+INSERT INTO users (username, email, password) VALUES ('test_username', 'test@email.com', 'test_password');
+INSERT INTO users (username, email, password) VALUES ('test_username2', 'test2@email.com', 'test_password2');
+
+INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('test_title', 'test_description', 'test_location', 100, 1);
+INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('test_title2', 'test_description2', 'test_location2', 100, 2);
