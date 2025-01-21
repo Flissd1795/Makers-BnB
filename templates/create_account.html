@@ -7,7 +7,7 @@
 <body>
     <div class="container">
         <h1>Create A MakersBnB Account</h1>
-        <form action="/MakersBnB/create_account" method="post">
+        <form action="/create_account" method="post">
             {% if errors %}
                 <ul>
                     {% for error in errors %}
@@ -31,7 +31,7 @@
                 <input type="submit" value="Create Account">
             </p>
         </form>
-        <form action="/MakersBnB/login" method="get">
+        <form action="/login" method="get">
             <button type="submit">Back to Login</button>
           </form>
     </div>

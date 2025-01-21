@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F8F9FA;
+        }
+        .topnav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px 20px;
+        }
+        .topnav .logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .topnav .logo img {
+            width: 50px;
+            height: auto;
+            margin-right: 10px;
+        }
+        .topnav .menu {
+            display: flex;
+            gap: 20px;
+        }
+        .topnav .menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+        }
+        .topnav .menu a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .container {
+            padding: 20px;
+        }
+        .heading {
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .requests-section {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .request-list {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .request-list h2 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .request-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #F1F1F1;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .request-item:hover {
+            background-color: #E2E2E2;
+        }
+    </style>
+</head>
+<body>
+    <div class="topnav">
+        <div class="logo">
+            <img src="/static/MakersBnB_logo.png" alt="MakersBnB Logo">
+            MakersBnB
+        </div>
+        <div class="menu">
+            <a href="/index">All Homes</a>
+            <a href="/all_requests">Requests</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+    <div class="container">
+        <h1 class="heading">Requests</h1>
+        <div class="requests-section">
+            <!-- List of requests made by user -->
+            <div class="request-list">
+                <h2>Requests Made</h2>
+                <div class="request-item" onclick="location.href='/individual_request';">
+                    Request 1 (redirects to Individual Home)
+                </div>
+                <div class="request-item" onclick="location.href='/individual_request';">
+                    Request 2 (redirects to Individual Home)
+                </div>
+            </div>
+            <!-- List of requests received by user -->
+            <div class="request-list">
+                <h2>Requests Received</h2>
+                <div class="request-item" onclick="location.href='/authenticate_request';">
+                    Request 1 (redirects to Authenticate Request)
+                </div>
+                <div class="request-item" onclick="location.href='/authenticate_request';">
+                    Request 2 (redirects to Authenticate Request)
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
