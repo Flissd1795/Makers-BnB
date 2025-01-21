@@ -1,7 +1,7 @@
 import os
 from lib.users import User
 from lib.users_repository import UserRepository
-from flask import Flask, request, render_template, session
+from flask import Flask, request, render_template, session, redirect, url_for
 from lib.database_connection import get_flask_database_connection
 
 # Create a new Flask app
@@ -12,7 +12,7 @@ def start_session():
     email = request.form['email']
     repository = UserRepository(connection)
     user_as_dict = repository.find_user(email)
-    user_as_object = User(user_as_dict['id'], user_as_dict['username'], user_as_dict['email'], user_as_dict['password'], user_as_dict['picture_id'])
+    user_as_object = User(user_as_dict['id'], user_as_dict['username'], user_as_dict['email'], user_as_dict['password'])
     session['users_id'] = user_as_object.id
     session['username'] = user_as_object.username
 
@@ -30,9 +30,37 @@ def get_index():
 def get_login():
     return render_template('login.html')
 
+@app.route('/login', methods=['POST'])
+def login():
+    # Get email and password from the form
+    connection = get_flask_database_connection(app)
+    email = request.form['email']
+    password = request.form.get('password') 
+    repository = UserRepository(connection)
+    if repository.check_password(email, password):
+        start_session()
+        return redirect(url_for('get_index')) # Redirect to the main page after successful login
+    else:
+        return redirect('/create_account') # Redirect to create account page if email not found
+
 @app.route('/create_account', methods=['GET'])
 def get_create_account():
     return render_template('create_account.html')
+
+@app.route('/create_account', methods = ['POST'])
+def create_new_user():
+    connection = get_flask_database_connection(app)
+    repository = UserRepository(connection)
+    new_user = User(None, request.form['username'], request.form['email'], request.form['password'])
+    if not new_user.is_valid():
+        return render_template('create_account.html', new_user=new_user, errors=new_user.generate_errors()), 400
+    repository.create_user(new_user.username, new_user.email, new_user.password)
+    return redirect(url_for('get_login'))
+
+@app.route('/logout', methods=['GET'])
+def get_logout():
+    session.clear()  # Clears all session data
+    return redirect(url_for('get_login'))
 
 @app.route('/create_home', methods=['GET'])
 def get_create_home():
@@ -59,8 +87,18 @@ def book():
         return f"Booking successful from {start_date} to {end_date}!"
     
     return render_template("index.html")
+
+@app.route('/all_requests', methods=['GET'])
+def get_all_requests():
+    return render_template('all_requests.html')
+
+@app.route('/auth_requests', methods=['GET'])
+def get_auth_requests():
+    return render_template('auth_request.html')
+
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database
 # if started in test mode.
 if __name__ == '__main__':
+    app.secret_key = os.environ.get('SECRET_KEY', 'super secret key')
     app.run(debug=True, port=int(os.environ.get('PORT', 5001)))

@@ -82,9 +82,9 @@
   <div class="topnav">
     <div class="logo"> <img src="/static/MakersBnB_logo.png" alt="MakersBnB Logo">MakersBnB</div>
     <div class="menu">
-      <a href="/MakersBnB/index">All Homes</a>
-      <a href="/MakersBnB/all_requests">Requests</a>
-      <a href="/MakersBnB/logout">Logout</a>
+      <a href="/index">All Homes</a>
+      <a href="/all_requests">Requests</a>
+      <a href="/logout">Logout</a>
     </div>
   </div>
 
@@ -93,7 +93,7 @@
     <h1 class="heading">Welcome, {{ session['username'] }}</h1>
 
     <div class="add-home">
-      <a href="/MakersBnB/create_home">Add Home</a>
+      <a href="/create_home">Add Home</a>
     </div>
 
     {% for home in homes|reverse %}
@@ -109,7 +109,7 @@
 
     {% else %}
     <h1>Please log in to access your dashboard.</h1>
-    <a href="/MakersBnB/login">Login</a>
+    <a href="/login">Login</a>
     {% endif %}
   </div>
 </body>

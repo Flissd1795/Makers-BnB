@@ -67,14 +67,14 @@
     <div class="topnav">
         <div class="logo"> <img src="/static/MakersBnB_logo.png" alt="MakersBnB Logo">MakersBnB</div>
         <div class="menu">
-          <a href="/MakersBnB/index">All Homes</a>
-          <a href="/MakersBnB/all_requests">Requests</a>
-          <a href="/MakersBnB/logout">Logout</a>
+          <a href="/index">All Homes</a>
+          <a href="/all_requests">Requests</a>
+          <a href="/logout">Logout</a>
         </div>
       </div>
     <div class="container">
         <h1>Add new MakersBnB listing</h1>
-        <form action="/MakersBnB/create_home" method="post">
+        <form action="/create_home" method="post">
             {% if errors %}
                 <ul>
                     {% for error in errors %}
