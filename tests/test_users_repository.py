@@ -5,19 +5,20 @@ def test_get_all_users(db_connection):
     db_connection.seed("seeds/makers_bnb.sql")
     repository = UserRepository(db_connection)
     users = repository.all_users()
-    assert users == ["User(1, test_username, test@email.com, test_password)", "User(2, test_username2, test2@email.com, test_password2)"]
+    assert str(users) == "[User(1, test_username, test@email.com, test_password), User(2, test_username2, test2@email.com, test_password2)]"
 
 def test_create_user(db_connection):
     db_connection.seed("seeds/makers_bnb.sql")
     repository = UserRepository(db_connection)
     repository.create_user("test_username3", "test3@email.com", "test_password3")
     users = repository.all_users()
-    assert users == ["User(1, test_username, test@email.com, test_password)", "User(2, test_username2, test2@email.com, test_password2)", "User(3, test_username3, test3@email.com, test_password3)"]
+    assert str(users) == "[User(1, test_username, test@email.com, test_password), User(2, test_username2, test2@email.com, test_password2), User(3, test_username3, test3@email.com, 26ce23907653f55c5e7b537f93467180eda26864fcd58e1bc95ea2d356048ea1)]"
 
 def test_check_password(db_connection):
     db_connection.seed("seeds/makers_bnb.sql")
     repository = UserRepository(db_connection)
-    assert repository.check_password("test@email.com", "test_password") == True
+    repository.create_user("test_username3", "test3@email.com", "test_password3")
+    assert repository.check_password("test3@email.com", "test_password3") == True
 
 def test_check_incorrect_password(db_connection):
     db_connection.seed("seeds/makers_bnb.sql")
