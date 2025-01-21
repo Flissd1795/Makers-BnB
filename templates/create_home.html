@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>MakersBnB - add a home!</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <div class="container">
+        <h1>Add new MakersBnB listing</h1>
+        <form action="/MakersBnB/create_home" method="post">
+            {% if errors %}
+                <ul>
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <p>
+                <label for="title">Enter title:</label>
+                <input type="text" name="title" id="title" required>
+            </p>
+            <p>
+                <label for="description">Enter description:</label>
+                <input type="text" name="description" id="description" required>
+            </p>
+            <p>
+                <label for="location">Enter location:</label>
+                <input type="text" name="location" id="location" required>
+            </p>
+            <p>
+                <label for="price_per_night">Enter Price:</label>
+                <input type="integer" name="price_per_night" id="price_per_night" required>
+            </p>
+            <p>
+                <input type="submit" value="Create Account">
+            </p>
+        </form>
+    </div>
+</body>
+</html>
