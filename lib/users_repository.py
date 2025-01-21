@@ -50,7 +50,8 @@ class UserRepository:
             return result[0]
         else:
             return None
-        
+
+        #Used in session creation 
     def get_username(self, id):
         result = self._connection.execute('SELECT username FROM users WHERE id = %s', [id])
         if result:
