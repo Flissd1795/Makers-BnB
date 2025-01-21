@@ -3,8 +3,75 @@
 <head>
     <title>MakersBnB - add a home!</title>
     <meta charset="utf-8">
+    <style>    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+  
+      .logo img {
+    width: 50px; /* Set a fixed width for the logo */
+    height: auto; /* Maintain aspect ratio */
+    padding: 5px; /* Add padding around the logo */
+    vertical-align: middle; /* Align the logo with the text (optional) */
+  }
+      .topnav {
+        display: flex;
+        justify-content: space-between;
+        align-items:center;
+        background-color: #333;
+        padding: 10px;
+      }
+  
+      .topnav a {
+        color: white;
+        text-decoration: none;
+        padding: 10px;
+      }
+  
+      .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+  
+      .logo {
+        font-size: 1.5em;
+        color: white;
+        font-weight: bold;
+      }
+  
+      .container {
+        padding: 20px;
+      }
+  
+      .heading {
+        font-size: 2em;
+        margin-bottom: 20px;
+      }
+      .menu {
+        display: flex; /* Makes the menu links inline */
+  gap: 15px; /* Adds spacing between the links */
+}
+.menu a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.menu a:hover {
+  background-color: #ddd;
+  color: black;
+}</style>
 </head>
 <body>
+    <div class="topnav">
+        <div class="logo"> <img src="/static/MakersBnB_logo.png" alt="MakersBnB Logo">MakersBnB</div>
+        <div class="menu">
+          <a href="/MakersBnB/index">All Homes</a>
+          <a href="/MakersBnB/all_requests">Requests</a>
+          <a href="/MakersBnB/logout">Logout</a>
+        </div>
+      </div>
     <div class="container">
         <h1>Add new MakersBnB listing</h1>
         <form action="/MakersBnB/create_home" method="post">
@@ -32,7 +99,7 @@
                 <input type="integer" name="price_per_night" id="price_per_night" required>
             </p>
             <p>
-                <input type="submit" value="Create Account">
+                <input type="submit" value="List new Home">
             </p>
         </form>
     </div>

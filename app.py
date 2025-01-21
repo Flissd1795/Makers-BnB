@@ -26,6 +26,39 @@ def start_session():
 def get_index():
     return render_template('index.html')
 
+@app.route('/login', methods=['GET'])
+def get_login():
+    return render_template('login.html')
+
+@app.route('/create_account', methods=['GET'])
+def get_create_account():
+    return render_template('create_account.html')
+
+@app.route('/create_home', methods=['GET'])
+def get_create_home():
+    return render_template('create_home.html')
+
+@app.route('/show_home', methods=['GET'])
+def get_show_home():
+    return render_template('show_home.html')
+
+@app.route("/show_home", methods=["POST"])
+def book():
+    if request.method == "POST":
+        start_date = request.form.get("start_date")
+        end_date = request.form.get("end_date")
+
+        if not start_date or not end_date:
+            return "Please select both dates."
+
+        # Ensure the end date is not earlier than the start date
+        if start_date > end_date:
+            return "Error: Check-out date must be after check-in date."
+
+        # Perform booking logic here (e.g., save to database, check availability, etc.)
+        return f"Booking successful from {start_date} to {end_date}!"
+    
+    return render_template("index.html")
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database
 # if started in test mode.

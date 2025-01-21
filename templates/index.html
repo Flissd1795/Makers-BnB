@@ -1,36 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Welcome to Chitter!</title>
-<meta charset="utf-8">
+  <title>Welcome to MakersBnB!</title>
+  <meta charset="utf-8">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .logo img {
+  width: 50px; /* Set a fixed width for the logo */
+  height: auto; /* Maintain aspect ratio */
+  padding: 5px; /* Add padding around the logo */
+  vertical-align: middle; /* Align the logo with the text (optional) */
+}
+    .topnav {
+      display: flex;
+      justify-content: space-between;
+      align-items:center;
+      background-color: #333;
+      padding: 10px;
+    }
+
+    .topnav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+    }
+
+    .topnav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    .logo {
+      font-size: 1.5em;
+      color: white;
+      font-weight: bold;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .heading {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    .add-home {
+      margin-bottom: 20px;
+    }
+
+    .individual-home {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 15px;
+      background-color: #f9f9f9;
+    }
+
+    .menu {
+    display: flex; /* Makes the menu links inline */
+  gap: 15px; /* Adds spacing between the links */
+}
+.menu a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.menu a:hover {
+  background-color: #ddd;
+  color: black;
+}
+  </style>
 </head>
-
-
-<div class="topnav">
-  <a href="/MakersBnB/index">All Homes</a>
-  <a href="/MakersBnB/all_requests">Requests</a>
-  <!-- <a href="/MakersBnB/logout">Logout</a> -->
-</div>
 <body>
+  <div class="topnav">
+    <div class="logo"> <img src="/static/MakersBnB_logo.png" alt="MakersBnB Logo">MakersBnB</div>
+    <div class="menu">
+      <a href="/MakersBnB/index">All Homes</a>
+      <a href="/MakersBnB/all_requests">Requests</a>
+      <a href="/MakersBnB/logout">Logout</a>
+    </div>
+  </div>
+
+  <div class="container">
     {% if session['users_id'] %}
-  Welcome, {{ session['username'] }}</h1>
+    <h1 class="heading">Welcome, {{ session['username'] }}</h1>
 
+    <div class="add-home">
+      <a href="/MakersBnB/create_home">Add Home</a>
+    </div>
 
-
-  {% for home in homes|reverse %}
-  <article class="individual-home">
-    <div class="column">
-      <p class="t-title">"{{ home.title }}"</p>
-      <p class="t-description">{{ home.description }} </p>
+    {% for home in homes|reverse %}
+    <article class="individual-home">
+      <div>
+        <p class="t-title">"{{ home.title }}"</p>
+        <p class="t-description">{{ home.description }}</p>
         <p class="t-location">Location: {{ home.location }}</p>
         <p class="t-price">Price: £{{ home.price_per_night }}</p>
-    </div>
-  </article>
-  {% endfor %}
-</div>
-{% else %}
-  <h1>Please log in to access your dashboard.</h1>
-  <a href="/MakersBnB/login">Login</a>
-{% endif %}</h1>
+      </div>
+    </article>
+    {% endfor %}
+
+    {% else %}
+    <h1>Please log in to access your dashboard.</h1>
+    <a href="/MakersBnB/login">Login</a>
+    {% endif %}
+  </div>
 </body>
 </html>
+
