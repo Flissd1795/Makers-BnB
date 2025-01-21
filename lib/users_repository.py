@@ -9,7 +9,7 @@ class UserRepository:
     List all users in the users database
     '''
     def all_users(self):
-        rows = self._connection.execute("SELECT * FROM users;")
+        rows = self._connection.execute('SELECT * FROM users')
         return [
             User(row["id"], row["username"], row["email"], row["password"])
             for row in rows

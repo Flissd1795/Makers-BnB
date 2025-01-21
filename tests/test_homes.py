@@ -26,6 +26,6 @@ def test_compares():
 Artists can be represented as strings
 """
 def test_stringifying():
-    home = Home(1, 'test_username', 'test_email', 'test_password')
+    home = Home(1, 'test_title', 'test_description', 'test_location', 'test_price_per_night', 'test_user_id')
     assert str(home) == "Home(1, test_title, test_description, test_location, test_price_per_night, test_user_id)"
 
