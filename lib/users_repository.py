@@ -25,6 +25,8 @@ class UserRepository:
             'INSERT INTO users (username, email, password) VALUES (%s, %s, %s)',
             [username, email, hashed_password])
         return None
+    
+    
     # def verify_password(self, email, password):
     def check_password(self, email, password_attempt):
         # Hash the password attempt
