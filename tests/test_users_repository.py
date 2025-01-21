@@ -1,7 +1,5 @@
-from lib.users import User
 from lib.users_repository import UserRepository
-import hashlib
-from unittest.mock import patch, Mock
+
 
 def test_get_all_users(db_connection):
     db_connection.seed("seeds/makers_bnb.sql")
