@@ -40,7 +40,11 @@ class UserRepository:
             [email, hashed_password_attempt])
 
         # If that SELECT finds any rows, the password is correct.
+        print(hashed_password_attempt)
+        print(len(rows))
+        print(rows)
         return len(rows) > 0
+        # return len(rows[0]) > 0
 
     '''
     Find a user on the database based on id (changeable)
