@@ -9,9 +9,8 @@ class User:
         return f"User({self.id}, {self.username}, {self.email}, {self.password})"
 
     def __eq__(self, other):
-        if isinstance(other, User):
             return self.__dict__ == other.__dict__
-        return False
+    
 
     def is_valid(self):
         if self.username == None or self.username == "":
