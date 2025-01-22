@@ -1,5 +1,6 @@
 from lib.homes import Home
 import datetime
+import calendar
 
 class HomesRepository:
     def __init__(self, connection):
@@ -27,6 +28,6 @@ class HomesRepository:
         for request in requests:
             iter_date = request["start_date"]
             while iter_date < request["end_date"]:
-                booked_dates.append(iter_date)
+                booked_dates.append(iter_date.day)
                 iter_date += datetime.timedelta(days=1)
         return booked_dates
