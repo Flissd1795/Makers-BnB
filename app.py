@@ -1,5 +1,6 @@
 import os
 from lib.users import User
+from lib.homes import Home
 from lib.users_repository import UserRepository
 from lib.homes_repository import HomesRepository
 from flask import Flask, request, render_template, session, redirect, url_for
@@ -66,6 +67,24 @@ def get_logout():
 @app.route('/create_home', methods=['GET'])
 def get_create_home():
     return render_template('create_home.html')
+
+@app.route('/create_home', methods = ['POST'])
+def create_home():
+    users_id = session.get('users_id') 
+    if not users_id:
+        return redirect(url_for('get_login'))
+    connection = get_flask_database_connection(app)
+    repository = HomesRepository(connection)
+    title = request.form['title']
+    description = request.form['description']
+    location = request.form['location']
+    price_per_night = request.form['price_per_night']
+    home = Home(None, title, description, location, price_per_night, int(users_id))
+    if not home.is_valid():
+        return render_template('login.html', home=home, errors=home.generate_errors()), 400
+    repository.create_home(title, description, location, price_per_night, int(users_id))
+    return redirect(url_for('get_index'))
+
 
 @app.route('/show_home', methods=['GET'])
 def get_show_home():

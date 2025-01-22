@@ -14,7 +14,7 @@ class HomesRepository:
         return all_homes
     
     def create_home(self, title, description, location, price_per_night, user_id):
-        self.connection.execute("INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('{}', '{}', '{}', '{}', '{}');".format(title, description, location, price_per_night, user_id))
+        self.connection.execute('INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES (%s, %s, %s, %s, %s)', [title, description, location, price_per_night, user_id])
         return None
     
     def find(self, id):
