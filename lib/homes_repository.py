@@ -30,3 +30,40 @@ class HomesRepository:
                 booked_dates.append(iter_date)
                 iter_date += datetime.timedelta(days=1)
         return booked_dates
+    
+
+    # def filter_by_location(self, location):
+    #     query = """
+    #     SELECT 
+    #         id, 
+    #         title, 
+    #         description, 
+    #         location, 
+    #         price_per_night 
+    #     FROM homes
+    #     WHERE location = %s;
+    #     """
+    #     rows = self._connection.execute(query, (location,))
+    #     formatted_location_filter = [
+    #         f"Home({row['id']}, {row['title']}, {row['description']}, {row['location']}, {row['price_per_night']})"
+    #     for row in rows
+    #     ]
+    #     return formatted_location_filter
+    
+    # def filter_by_price(self, price_per_night):
+    #     query = """
+    #     SELECT 
+    #         id, 
+    #         title, 
+    #         description, 
+    #         location, 
+    #         price_per_night 
+    #     FROM homes
+    #     WHERE location = %s;
+    #     """
+    #     rows = self._connection.execute(query, (price_per_night,))
+    #     formatted_price_per_night_filter = [
+    #         f"Home({row['id']}, {row['title']}, {row['description']}, {row['location']}, {row['price_per_night']})"
+    #     for row in rows
+    #     ]
+    #     return formatted_price_per_night_filter

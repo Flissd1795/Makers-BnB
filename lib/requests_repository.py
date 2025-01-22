@@ -92,10 +92,6 @@ class RequestRepository:
         # Return the results
         return formatted_requests
     
-
-    
-
-
     '''
     List requests received to a specific home
     Get all requests made to a users home
