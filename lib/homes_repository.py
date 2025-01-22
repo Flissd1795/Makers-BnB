@@ -21,8 +21,8 @@ class HomesRepository:
         home = self.connection.execute("SELECT * FROM homes WHERE id = {};".format(id))
         return Home(home[0]["id"], home[0]["title"], home[0]["description"], home[0]["location"], home[0]["price_per_night"], home[0]["user_id"])
       
-    def fetch_booked_dates(self, home_id):
-        requests = self.connection.execute("SELECT * FROM requests WHERE home_id = %s;", [home_id])
+    def fetch_booked_dates(self, id):
+        requests = self.connection.execute("SELECT * FROM requests WHERE home_id = %s;", [id])
         booked_dates = []
         for request in requests:
             iter_date = request["start_date"]
