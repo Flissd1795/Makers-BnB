@@ -26,7 +26,10 @@ def start_session():
 #   ; open http://localhost:5001/index
 @app.route('/index', methods=['GET'])
 def get_index():
-    return render_template('index.html')
+    connection = get_flask_database_connection(app)
+    repository = HomesRepository(connection)
+    homes = repository.all_homes()
+    return render_template('index.html', homes=homes)
 
 @app.route('/login', methods=['GET'])
 def get_login():
@@ -69,22 +72,15 @@ def get_create_home():
     return render_template('create_home.html')
 
 
-@app.route('/show_home', methods=['GET'])
-def get_show_home():
-    # change this value
-    home_id = 1
-    # change this value
-    booked_dates = HomesRepository.fetch_booked_dates(home_id)
-    return render_template('show_home.html', booked_dates=booked_dates)
-
-@app.route("/show_home", methods=["POST"])
-def book():
 @app.route('/show_home/<id>', methods=['GET'])
 def get_show_home(id):
     connection = get_flask_database_connection(app)
     repository = HomesRepository(connection)
+    home = repository.find(id)
+    user = UserRepository(connection).get_username(home.user_id)
+    user = user.get('username')
     booked_dates = repository.fetch_booked_dates(id)
-    return render_template('show_home.html', month=range(1, 32), booked_dates=booked_dates)
+    return render_template('show_home.html', home=home, home_owner=user, month=range(1, 32), booked_dates=booked_dates)
 
 @app.route("/show_home/<id>", methods=["POST"])
 def book(id):
@@ -111,9 +107,9 @@ def get_all_requests():
 @app.route('/auth_requests', methods=['GET'])
 def get_auth_requests():
     return render_template('auth_request.html')
-  
-  
- @app.route('/create_home', methods = ['POST'])
+
+
+@app.route('/create_home', methods = ['POST'])
 def create_home():
     users_id = session.get('users_id') 
     if not users_id:

@@ -17,12 +17,13 @@
         </div>
     </div>
     <div class="title_container">
-        <h1>Input the title of the home here</h1>
+        <h1>{{home.title}}</h1>
     </div>
     <div class="description_container">
-        <p>Description: (Input description of home here)</p>
-        <p>Location: (input location of home here)</p>
-        <p>Price per night: (input price of home here)</p>
+        <p>Description: {{home.description}}</p>
+        <p>Location: {{home.location}}</p>
+        <p>Price per night: {{home.price_per_night}}</p>
+        <p>Owner: {{home_owner}}</p>
         <h1>Booked dates:</h1>
         {% for date in booked_dates %}
         <div class="booked_date">
