@@ -19,7 +19,7 @@ class HomesRepository:
         return None
     
     def find(self, id):
-        home = self.connection.execute("SELECT * FROM homes WHERE id = {};".format(id))
+        home = self.connection.execute("SELECT * FROM homes WHERE id = %s;", [id])
         return Home(home[0]["id"], home[0]["title"], home[0]["description"], home[0]["location"], home[0]["price_per_night"], home[0]["user_id"])
       
     def fetch_booked_dates(self, id):
@@ -31,3 +31,12 @@ class HomesRepository:
                 booked_dates.append(iter_date.day)
                 iter_date += datetime.timedelta(days=1)
         return booked_dates
+
+    def find_all(self ,id):
+        # home = self.connection.execute("SELECT * FROM homes WHERE id = %s;", [id])
+        homes = self.connection.execute("SELECT * FROM homes WHERE user_id = %s;", [id])
+        all_homes = []
+        for home in homes:
+            item = Home(home["id"], home["title"], home["description"], home["location"], home["price_per_night"], home["user_id"])
+            all_homes.append(item)
+        return all_homes
