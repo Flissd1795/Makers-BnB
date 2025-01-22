@@ -47,6 +47,21 @@ def login():
 def get_create_account():
     return render_template('create_account.html')
 
+@app.route('/create_account', methods = ['POST'])
+def create_new_user():
+    connection = get_flask_database_connection(app)
+    repository = UserRepository(connection)
+    new_user = User(None, request.form['username'], request.form['email'], request.form['password'])
+    if not new_user.is_valid():
+        return render_template('create_account.html', new_user=new_user, errors=new_user.generate_errors()), 400
+    repository.create_user(new_user.username, new_user.email, new_user.password)
+    return redirect(url_for('get_login'))
+
+@app.route('/logout', methods=['GET'])
+def get_logout():
+    session.clear()  # Clears all session data
+    return redirect(url_for('get_login'))
+
 @app.route('/create_home', methods=['GET'])
 def get_create_home():
     return render_template('create_home.html')
@@ -85,4 +100,5 @@ def get_auth_requests():
 # They also start the server configured to use the test database
 # if started in test mode.
 if __name__ == '__main__':
+    app.secret_key = os.environ.get('SECRET_KEY', 'super secret key')
     app.run(debug=True, port=int(os.environ.get('PORT', 5001)))

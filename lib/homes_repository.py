@@ -13,6 +13,19 @@ class HomesRepository:
             all_homes.append(item)
         return all_homes
     
+
+
+    def create_home(self, title, description, location, price_per_night, user_id):
+        self.connection.execute("INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('{}', '{}', '{}', '{}', '{}');".format(title, description, location, price_per_night, user_id))
+        return None
+    
+    def find(self, id):
+        home = self.connection.execute("SELECT * FROM homes WHERE id = {};".format(id))
+        return Home(home[0]["id"], home[0]["title"], home[0]["description"], home[0]["location"], home[0]["price_per_night"], home[0]["user_id"])
+   main
+
+
+dating
     def view_booked_dates(self, home_id):
         requests = self.connection.execute("SELECT * FROM requests WHERE home_id = %s;", [home_id])
         booked_dates = []
