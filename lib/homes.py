@@ -11,9 +11,8 @@ class Home:
         return f"Home({self.id}, {self.title}, {self.description}, {self.location}, {self.price_per_night}, {self.user_id})"
 
     def __eq__(self, other):
-        if isinstance(other, Home):
             return self.__dict__ == other.__dict__
-        return False
+    
 
     def is_valid(self):
         if self.title == None or self.title == "":
@@ -22,7 +21,7 @@ class Home:
             return False
         if self.location == None or self.location == "":
             return False
-        if self.price_per_night == None or self.price_per_night == "" or not isinstance(self.price_per_night, int):
+        if self.price_per_night == None or self.price_per_night == "":
             return False
         return True
 
@@ -34,6 +33,8 @@ class Home:
             errors.append("Description is required")
         if self.location == None or self.location == "":
             errors.append("Location is required")
-        if self.price_per_night == None or self.price_per_night == "" or not isinstance(self.price_per_night, int):
-            errors.append("Price per night is required and must be a number")
+        if self.price_per_night == None or self.price_per_night == "":
+            errors.append("Price per night is required")
+        if not self.price_per_night.isdigit():
+            errors.append("Price per night must be a number")
         return errors
