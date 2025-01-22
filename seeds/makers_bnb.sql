@@ -21,7 +21,7 @@ CREATE TABLE homes (
     title VARCHAR(255),
     description VARCHAR(255),
     location VARCHAR(255),
-    price_per_night int,
+    price_per_night int, 
     user_id int,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
@@ -38,7 +38,8 @@ CREATE TABLE requests (
     end_date DATE NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
     FOREIGN KEY (home_id) REFERENCES homes (id) ON DELETE CASCADE
-    -- UNIQUE (home_id, date_available) 
+    
+    --UNIQUE (home_id, date_available) 
 );
 
 INSERT INTO users (username, email, password) VALUES ('test_username', 'test@email.com', 'test_password');
@@ -49,6 +50,3 @@ INSERT INTO homes (title, description, location, price_per_night, user_id) VALUE
 
 INSERT INTO requests (status, date_submitted, home_id, user_id, start_date, end_date) VALUES ('unseen', '2000-01-01', '1', '1', '2000-02-05', '2000-02-07');
 INSERT INTO requests (status, date_submitted, home_id, user_id, start_date, end_date) VALUES ('confirmed', '2000-01-01', '1', '1', '2000-02-05', '2000-02-07');
-
--- INSERT INTO requests (status, date_submitted, home_id, user_id, start_date, end_date) VALUES ('Unseen', 2000-01-01, 1, 1, 2000-02-01, 2000-03-01); 
--- INSERT INTO requests (status, date_submitted, home_id, user_id, start_date, end_date) VALUES ('Confirmed', 2000-01-01, 1, 1, 2000-02-01, 2000-03-01);

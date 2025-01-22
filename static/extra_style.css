@@ -1,0 +1,148 @@
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #fff5f7; /* Soft pink background */
+    }
+
+    .calendar-container {
+        background: #ffffff; /* Crisp white background */
+        border: 1px solid #ffc2d1; /* Light coral border */
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Elegant shadow for depth */
+        text-align: center;
+        max-width: 420px;
+        width: 90%;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+        color: #d6336c; /* Bright pinkish red for headings */
+        margin-bottom: 20px;
+        letter-spacing: 0.5px; /* Slight letter spacing for refinement */
+        font-weight: bold;
+    }
+
+    .month-navigation {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .month-navigation button {
+        padding: 10px 15px;
+        background-color: #ff6f91; /* Coral-pink button color */
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .month-navigation button:hover {
+        background-color: #ff477e; /* Darker coral-pink on hover */
+        transform: scale(1.05); /* Subtle scaling for interaction */
+    }
+
+    #monthYear {
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: #495057; /* Charcoal for text contrast */
+        letter-spacing: 0.5px;
+    }
+
+    .calendar-header {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 15px;
+        color: #6c757d; /* Muted charcoal for weekday labels */
+    }
+
+    .calendar-header div {
+        text-transform: uppercase;
+        font-size: 12px;
+        color: #f03e65; /* Soft pinkish red for weekday labels */
+    }
+
+    .calendar {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 12px;
+    }
+
+    .calendar button {
+        padding: 15px;
+        background-color: #ffe3e8; /* Light pink for unselected dates */
+        border: 1px solid #ffc2d1; /* Coral border for buttons */
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 14px;
+        color: #2c2c2c; /* Charcoal for numbers */
+        text-align: center;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle depth for buttons */
+    }
+
+    .calendar button:hover:not(.disabled):not(.selected) {
+        background-color: #ff6f91; /* Coral-pink on hover */
+        color: white;
+        transform: translateY(-2px); /* Subtle lift effect */
+    }
+
+    .calendar button.selected {
+        background-color: #d6336c; /* Bright pinkish red for selected dates */
+        color: white;
+        border-color: #d6336c;
+        transform: scale(1.05); /* Slight scaling for emphasis */
+    }
+
+    .calendar button.disabled {
+        background-color: #f8f9fa; /* Muted light gray for disabled dates */
+        color: #adb5bd; /* Muted gray text */
+        cursor: not-allowed;
+        border-color: #dee2e6;
+        box-shadow: none;
+    }
+
+    .calendar button:focus {
+        outline: 2px solid #ff477e; /* Coral outline for focus */
+    }
+
+    @media (max-width: 600px) {
+        .calendar-container {
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 1.4rem;
+        }
+
+        .month-navigation button {
+            font-size: 12px;
+            padding: 8px 12px;
+        }
+
+        #monthYear {
+            font-size: 1.2rem;
+        }
+
+        .calendar button {
+            padding: 12px;
+            font-size: 12px;
+        }
+
+        .calendar-header div {
+            font-size: 10px;
+        }
+    }
