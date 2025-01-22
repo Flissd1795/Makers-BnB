@@ -1,6 +1,7 @@
 import os
 from lib.users import User
 from lib.users_repository import UserRepository
+from lib.homes_repository import HomesRepository
 from flask import Flask, request, render_template, session, redirect, url_for
 from lib.database_connection import get_flask_database_connection
 
@@ -68,7 +69,11 @@ def get_create_home():
 
 @app.route('/show_home', methods=['GET'])
 def get_show_home():
-    return render_template('show_home.html')
+    # change this value
+    home_id = 1
+    # change this value
+    booked_dates = HomesRepository.fetch_booked_dates(home_id)
+    return render_template('show_home.html', booked_dates=booked_dates)
 
 @app.route("/show_home", methods=["POST"])
 def book():

@@ -20,11 +20,15 @@
         <h1>Input the title of the home here</h1>
     </div>
     <div class="description_container">
-            <p>Description: (Input description of home here)</p>
-            <p>Location: (input location of home here)</p>
-            <p>Price per night: (input price of home here)</p>
-            <p>Owner: (input user id translated into email here)</p>
-    </div>
+        <p>Description: (Input description of home here)</p>
+        <p>Location: (input location of home here)</p>
+        <p>Price per night: (input price of home here)</p>
+        <h1>Booked dates:</h1>
+        {% for date in booked_dates %}
+        <div>
+            {{booked_dates}}
+        </div>
+        {% endfor %}
     <div class="check_in_container">
         <h1>Select your dates</h1>
         <form action="/book" method="POST">
@@ -32,9 +36,7 @@
             <input type="date" id="start-date" name="start_date" required>
             <label for="end-date">Check-out:</label>
             <input type="date" id="end-date" name="end_date" required>
-                <button
-                    type="submit">Reserve Home
-                </button>
+            <button type="submit">Reserve Home</button>
         </form>
     </div>
 </body>
