@@ -35,6 +35,6 @@ class Home:
             errors.append("Location is required")
         if self.price_per_night == None or self.price_per_night == "":
             errors.append("Price per night is required")
-        if not self.price_per_night.isdigit():
+        if not str(self.price_per_night).isdigit():
             errors.append("Price per night must be a number")
         return errors

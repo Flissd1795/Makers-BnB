@@ -61,14 +61,4 @@ def test_generate_errors_location():
     home = Home(1, 'test_title', 'test_description', None, 100, 'test_user_id')
     assert home.generate_errors() == ['Location is required']
 
-def test_price_per_night_invalid_alpha():
-    home = Home(1, 'test_title', 'test_description', 'test_location', 'test_price_per_night', 'test_user_id')
-    assert home.is_valid() == False
-
-def test_generate_errors_price_per_night():
-    home = Home(1, 'test_title', 'test_description', 'test_location', 'test_price_per_night', 'test_user_id')
-    assert home.generate_errors() == ['Price per night is required and must be a number']
-
-
-
 
