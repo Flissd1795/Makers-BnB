@@ -5,27 +5,70 @@ Constructs with an id, title, description, location, price_per_night, user_id
 """
 
 def test_constructs():
-    home = Home(1, 'test_title', 'test_description', 'test_location', 'test_price_per_night', 'test_user_id')
+    home = Home(1, 'test_title', 'test_description', 'test_location',100, 'test_user_id')
     assert home.id == 1
     assert home.title == 'test_title'
     assert home.description == 'test_description'
     assert home.location == 'test_location'
-    assert home.price_per_night == 'test_price_per_night'
+    assert home.price_per_night == 100
     assert home.user_id == 'test_user_id'
 
     
 """
-Artists with equal contents are equal
+with equal contents are equal
 """
 def test_compares():
-    home_1 = Home(1, 'test_title', 'test_description', 'test_location', 'test_price_per_night', 'test_user_id')
-    home_2 = Home(1, 'test_title', 'test_description', 'test_location', 'test_price_per_night', 'test_user_id')
+    home_1 = Home(1, 'test_title', 'test_description', 'test_location', 100, 'test_user_id')
+    home_2 = Home(1, 'test_title', 'test_description', 'test_location', 100, 'test_user_id')
     assert home_1 == home_2
 
 """
-Artists can be represented as strings
+can be represented as strings
 """
 def test_stringifying():
+    home = Home(1, 'test_title', 'test_description', 'test_location', 100, 'test_user_id')
+    assert str(home) == "Home(1, test_title, test_description, test_location, 100, test_user_id)"
+
+def test_is_valid():
+    home = Home(1, 'test_title', 'test_description', 'test_location', 100, 'test_user_id')
+    assert home.is_valid() == True
+
+def test_generate_errors():
+    home = Home(1, 'test_title', 'test_description', 'test_location', 100, 'test_user_id')
+    assert home.generate_errors() == []
+
+def test_is_invalid_title():
+    home = Home(1, None, 'test_description', 'test_location', 100, 'test_user_id')
+    assert home.is_valid() == False
+
+def test_generate_errors_title():
+    home = Home(1, None, 'test_description', 'test_location', 100, 'test_user_id')
+    assert home.generate_errors() == ['Title is required']
+
+def test_is_invalid_description():
+    home = Home(1, 'test_title', None, 'test_location', 100, 'test_user_id')
+    assert home.is_valid() == False
+
+def test_generate_errors_description():
+    home = Home(1, 'test_title', None, 'test_location', 100, 'test_user_id')
+    assert home.generate_errors() == ['Description is required']
+
+def test_is_invalid_location(): 
+    home = Home(1, 'test_title', 'test_description', None, 100, 'test_user_id')
+    assert home.is_valid() == False
+
+def test_generate_errors_location():
+    home = Home(1, 'test_title', 'test_description', None, 100, 'test_user_id')
+    assert home.generate_errors() == ['Location is required']
+
+def test_price_per_night_invalid_alpha():
     home = Home(1, 'test_title', 'test_description', 'test_location', 'test_price_per_night', 'test_user_id')
-    assert str(home) == "Home(1, test_title, test_description, test_location, test_price_per_night, test_user_id)"
+    assert home.is_valid() == False
+
+def test_generate_errors_price_per_night():
+    home = Home(1, 'test_title', 'test_description', 'test_location', 'test_price_per_night', 'test_user_id')
+    assert home.generate_errors() == ['Price per night is required and must be a number']
+
+
+
 
