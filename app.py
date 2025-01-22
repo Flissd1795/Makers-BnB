@@ -72,7 +72,7 @@ def get_show_home(id):
     connection = get_flask_database_connection(app)
     repository = HomesRepository(connection)
     booked_dates = repository.fetch_booked_dates(id)
-    return render_template('show_home.html', booked_dates=booked_dates)
+    return render_template('show_home.html', month=range(1, 32), booked_dates=booked_dates)
 
 @app.route("/show_home/<id>", methods=["POST"])
 def book(id):
