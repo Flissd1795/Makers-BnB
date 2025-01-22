@@ -21,7 +21,7 @@ CREATE TABLE homes (
     title VARCHAR(255),
     description VARCHAR(255),
     location VARCHAR(255),
-    price_per_night int,
+    price_per_night int, 
     user_id int,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
@@ -38,7 +38,8 @@ CREATE TABLE requests (
     end_date DATE NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
     FOREIGN KEY (home_id) REFERENCES homes (id) ON DELETE CASCADE
-    -- UNIQUE (home_id, date_available) 
+    
+    --UNIQUE (home_id, date_available) 
 );
 
 INSERT INTO users (username, email, password) VALUES ('test_username', 'test@email.com', 'test_password');
