@@ -1,4 +1,5 @@
 from lib.homes import Home
+import datetime
 
 class HomesRepository:
     def __init__(self, connection):
@@ -12,3 +13,11 @@ class HomesRepository:
             all_homes.append(item)
         return all_homes
     
+    def view_booked_dates(self, home_id):
+        requests = self.connection.execute("SELECT * FROM requests WHERE home_id = %s;", [home_id])
+        booked_dates = []
+        for request in requests:
+            iter_date = request["start_date"]
+            while iter_date < request["end_date"]:
+                booked_dates.append(iter_date)
+                iter_date += datetime.timedelta(days=1)
