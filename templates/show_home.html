@@ -37,14 +37,28 @@
             <input type="date" id="start-date" name="start_date" required>
             <label for="end-date">Check-out:</label>
             <input type="date" id="end-date" name="end_date" required>
-            <button type="submit">Reserve Home</button>
+            <button type="submit" class="button">Reserve Home</button>
         </form>
     </div>
-    <div class="calendar container">
-        {% for day in month %}
-        <form action="/select_dates" method="POST"></form>
-        <button type="button" value="{{day}}" class="button button2">{{day}}</button>
-        {% endfor %}
-    </div>
+        <div class="calendar_buttons">
+            <div class="calendar_headers">Mon</div>
+            <div class="calendar_headers">Tue</div>
+            <div class="calendar_headers">Wed</div>
+            <div class="calendar_headers">Thu</div>
+            <div class="calendar_headers">Fri</div>
+            <div class="calendar_headers">Sat</div>
+            <div class="calendar_headers">Sun</div>
+            {% for day in month -%}
+                {% if day in booked_dates -%}
+                    <form action="" method="POST">
+                        <button type="button" name=day value="{{day}}" class="button3">{{day}}</button>
+                    </form>
+                {% else -%}
+                    <form action="" method="POST">
+                        <button type="submit" name="day" value="{{day}}" class="button2">{{day}}</button>
+                    </form>
+                {% endif -%}
+            {% endfor %}
+        </div>
 </body>
 </html>

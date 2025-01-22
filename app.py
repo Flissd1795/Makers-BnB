@@ -84,8 +84,8 @@ def get_show_home(id):
 @app.route("/show_home/<id>", methods=["POST"])
 def book(id):
     if request.method == "POST":
-        start_date = request.form.get("start_date")
-        end_date = request.form.get("end_date")
+        start_date = request.form.get("day")
+        end_date = request.form.get("day")
 
         if not start_date or not end_date:
             return "Please select both dates."
@@ -127,6 +127,8 @@ def create_home():
         return render_template('login.html', home=home, errors=home.generate_errors()), 400
     repository.create_home(title, description, location, price_per_night, int(users_id))
     return redirect(url_for('get_index'))
+
+
 
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database
