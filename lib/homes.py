@@ -15,3 +15,25 @@ class Home:
             return self.__dict__ == other.__dict__
         return False
 
+    def is_valid(self):
+        if self.title == None or self.title == "":
+            return False
+        if self.description == None or self.description == "":
+            return False
+        if self.location == None or self.location == "":
+            return False
+        if self.price_per_night == None or self.price_per_night == "" or not isinstance(self.price_per_night, int):
+            return False
+        return True
+
+    def generate_errors(self):
+        errors = []
+        if self.title == None or self.title == "":
+            errors.append("Title is required")
+        if self.description == None or self.description == "":
+            errors.append("Description is required")
+        if self.location == None or self.location == "":
+            errors.append("Location is required")
+        if self.price_per_night == None or self.price_per_night == "" or not isinstance(self.price_per_night, int):
+            errors.append("Price per night is required and must be a number")
+        return errors
