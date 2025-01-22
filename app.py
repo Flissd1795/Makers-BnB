@@ -68,23 +68,6 @@ def get_logout():
 def get_create_home():
     return render_template('create_home.html')
 
-@app.route('/create_home', methods = ['POST'])
-def create_home():
-    users_id = session.get('users_id') 
-    if not users_id:
-        return redirect(url_for('get_login'))
-    connection = get_flask_database_connection(app)
-    repository = HomesRepository(connection)
-    title = request.form['title']
-    description = request.form['description']
-    location = request.form['location']
-    price_per_night = request.form['price_per_night']
-    home = Home(None, title, description, location, price_per_night, int(users_id))
-    if not home.is_valid():
-        return render_template('login.html', home=home, errors=home.generate_errors()), 400
-    repository.create_home(title, description, location, price_per_night, int(users_id))
-    return redirect(url_for('get_index'))
-
 
 @app.route('/show_home', methods=['GET'])
 def get_show_home():
@@ -96,6 +79,15 @@ def get_show_home():
 
 @app.route("/show_home", methods=["POST"])
 def book():
+@app.route('/show_home/<id>', methods=['GET'])
+def get_show_home(id):
+    connection = get_flask_database_connection(app)
+    repository = HomesRepository(connection)
+    booked_dates = repository.fetch_booked_dates(id)
+    return render_template('show_home.html', month=range(1, 32), booked_dates=booked_dates)
+
+@app.route("/show_home/<id>", methods=["POST"])
+def book(id):
     if request.method == "POST":
         start_date = request.form.get("start_date")
         end_date = request.form.get("end_date")
@@ -119,6 +111,24 @@ def get_all_requests():
 @app.route('/auth_requests', methods=['GET'])
 def get_auth_requests():
     return render_template('auth_request.html')
+  
+  
+ @app.route('/create_home', methods = ['POST'])
+def create_home():
+    users_id = session.get('users_id') 
+    if not users_id:
+        return redirect(url_for('get_login'))
+    connection = get_flask_database_connection(app)
+    repository = HomesRepository(connection)
+    title = request.form['title']
+    description = request.form['description']
+    location = request.form['location']
+    price_per_night = request.form['price_per_night']
+    home = Home(None, title, description, location, price_per_night, int(users_id))
+    if not home.is_valid():
+        return render_template('login.html', home=home, errors=home.generate_errors()), 400
+    repository.create_home(title, description, location, price_per_night, int(users_id))
+    return redirect(url_for('get_index'))
 
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database

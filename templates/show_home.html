@@ -25,8 +25,8 @@
         <p>Price per night: (input price of home here)</p>
         <h1>Booked dates:</h1>
         {% for date in booked_dates %}
-        <div>
-            {{booked_dates}}
+        <div class="booked_date">
+            {{date}}
         </div>
         {% endfor %}
     <div class="check_in_container">
@@ -38,6 +38,12 @@
             <input type="date" id="end-date" name="end_date" required>
             <button type="submit">Reserve Home</button>
         </form>
+    </div>
+    <div class="calendar container">
+        {% for day in month %}
+        <form action="/select_dates" method="POST"></form>
+        <button type="button" value="{{day}}" class="button button2">{{day}}</button>
+        {% endfor %}
     </div>
 </body>
 </html>
