@@ -71,7 +71,6 @@ def get_logout():
 def get_create_home():
     return render_template('create_home.html')
 
-
 @app.route('/show_home/<id>', methods=['GET'])
 def get_show_home(id):
     connection = get_flask_database_connection(app)
@@ -107,7 +106,6 @@ def get_all_requests():
 @app.route('/auth_requests', methods=['GET'])
 def get_auth_requests():
     return render_template('auth_request.html')
-
 
 @app.route('/create_home', methods = ['POST'])
 def create_home():
