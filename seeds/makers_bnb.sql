@@ -47,5 +47,5 @@ INSERT INTO users (username, email, password) VALUES ('test_username2', 'test2@e
 INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('test_title', 'test_description', 'test_location', 100, 1);
 INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('test_title2', 'test_description2', 'test_location2', 100, 2);
 
-INSERT INTO requests (status, date_submitted, home_id, user_id, start_date, end_date) VALUES ('Unseen', '2000-01-01', '1', '1', '2000-02-01', '2000-03-01'); 
-INSERT INTO requests (status, date_submitted, home_id, user_id, start_date, end_date) VALUES ('Confirmed', '2000-01-01', '1', '1', '2000-02-01', '2000-03-01');
+INSERT INTO requests (status, date_submitted, home_id, user_id, start_date, end_date) VALUES ('Unseen', 2000-01-01, 1, 1, 2000-02-01, 2000-03-01); 
+INSERT INTO requests (status, date_submitted, home_id, user_id, start_date, end_date) VALUES ('Confirmed', 2000-01-01, 1, 1, 2000-02-01, 2000-03-01);
