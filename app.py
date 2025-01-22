@@ -101,7 +101,11 @@ def book(id):
 
 @app.route('/all_requests', methods=['GET'])
 def get_all_requests():
-    return render_template('all_requests.html')
+    connection = get_flask_database_connection(app)
+    repository = HomesRepository(connection)
+    users_id = session.get('users_id') 
+    homes = repository.find_all(users_id)
+    return render_template('all_requests.html', homes=homes)
 
 @app.route('/auth_requests', methods=['GET'])
 def get_auth_requests():
