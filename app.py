@@ -67,16 +67,15 @@ def get_logout():
 def get_create_home():
     return render_template('create_home.html')
 
-@app.route('/show_home', methods=['GET'])
-def get_show_home():
-    # change this value
-    home_id = 1
-    # change this value
-    booked_dates = HomesRepository.fetch_booked_dates(home_id)
+@app.route('/show_home/<id>', methods=['GET'])
+def get_show_home(id):
+    connection = get_flask_database_connection(app)
+    repository = HomesRepository(connection)
+    booked_dates = repository.fetch_booked_dates(id)
     return render_template('show_home.html', booked_dates=booked_dates)
 
-@app.route("/show_home", methods=["POST"])
-def book():
+@app.route("/show_home/<id>", methods=["POST"])
+def book(id):
     if request.method == "POST":
         start_date = request.form.get("start_date")
         end_date = request.form.get("end_date")
