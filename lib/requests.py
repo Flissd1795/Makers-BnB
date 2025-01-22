@@ -9,7 +9,9 @@ class Request:
         self.end_date = end_date
     
     def __eq__(self, other):
-        return self.__dict__ == other.__dict__
-    
+        if isinstance(other, Request):
+            return self.__dict__ == other.__dict__
+        return False
+
     def __repr__(self):
         return f"Request({self.id}, {self.status}, {self.date_submitted}, {self.home_id}, {self.user_id}, {self.start_date}, {self.end_date})"
