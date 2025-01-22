@@ -1,18 +1,18 @@
-# from lib.requests import Request
-# from lib.requests_repository import RequestRepository
+from lib.requests import Request
+from lib.requests_repository import RequestRepository
 
-# def test_get_all_requests(db_connection):
-#     db_connection.seed("seeds/makers_bnb.sql")
-#     repository = RequestRepository(db_connection)
-#     requests = repository.get_all_requests()
-#     assert requests == ["Request(1, Unseen, 2000-01-01, 1, 1, 2000-02-01, 2000-03-01), Request(2, Confirmed, 2000-01-01, 1, 1, 2000-02-01, 2000-03-01)"]
-#     # both examples added to database
+def test_get_all_requests(db_connection):
+    db_connection.seed("seeds/makers_bnb.sql")
+    repository = RequestRepository(db_connection)
+    requests = repository.get_all_requests()
+    assert requests == ["Request(1, Unseen, 2000-01-01, 1, 1, 2000-02-01, 2000-03-01), Request(2, Confirmed, 2000-01-01, 1, 1, 2000-02-01, 2000-03-01)"]
+    # both examples added to database
 
-# def test_get_requests_by_user():
+def test_get_requests_by_user():
 
 
-# def get_requests_to_user_homes():
 
+def get_requests_to_user_homes():
 
 
 
