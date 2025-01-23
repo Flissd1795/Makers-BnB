@@ -1,5 +1,6 @@
 body {
     font-family: Arial, sans-serif;
+    color: #333;
     background-color: #f8f9fa;
     margin: 0;
     padding: 0;
@@ -20,45 +21,68 @@ body {
     color: white;
     text-decoration: none;
     padding: 10px;
+    transition: background-color 0.8s;
 }
 
 .topnav a:hover {
-    background-color: #ddd;
-    color: black;
+    background-color: #3c3839;
 }
 
 .logo img {
-
     width: 50px; /* Set a fixed width for the logo */
     height: auto; /* Maintain aspect ratio */
     padding: 5px; /* Add padding around the logo */
-    vertical-align: middle; /* Align the logo with the text (optional) */}
+    vertical-align: middle; /* Align the logo with the text (optional) */
+}
 
 .logo {
     font-size: 1.5em;
-    color: white;
     font-weight: bold;
-      }
+}
+
+.page_container {
+    display: flex;
+    height: 100vh;
+}
+
+.content_container {
+    display: flex;
+    margin: auto;
+}
+
+.top_border {
+    padding: 5px;
+    background-color: #555aa5;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.property_pic_container img {
+    width: 500px;
+    height: auto;
+    border-radius: 50px;
+}
 
 .title_container {
-    background-color: #f8f9fa;
-    padding: 30px;
+    padding: 2%;
     border-radius: 8px;
-    width: 700px;
+    width: auto;
     margin: auto;
     margin-top: 0px; /* Center the container in the remaining space */
     align-items: center;
     text-align: center;
-    }
+}
 
 .description_container {
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 8px;
-    width: 700px;
-    margin: auto; /* Center the container in the remaining space */
+    border-radius: 65px;
+    background-color: #e3e3e3;
+    padding: 22px;
+    width: 500px;
+    margin: auto;
+    margin-left: 100px;
+    margin-right: 100px; /* Center the container in the remaining space */
     text-align: center;
-    }
+}
 
 .check_in_container {
     background-color: #fff;
@@ -72,7 +96,7 @@ body {
 
 h1 {
     margin-top: 14px;
-    margin-bottom: 0px;
+    margin-bottom: 14px;
 }
 
 h2 {
@@ -101,72 +125,156 @@ button {
     padding: 10px 15px;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #d6d6d6;
+}
+
+.button2,
+.button3,
+.button4 {
+    padding: 2px;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    margin: 4px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
 }
 
 .button2 {
-    padding: 2px 2px;
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    margin: 4px;
+    background-color: #ebebeb;
+    color: #333;
 }
 
-.button4 {
-    background-color: #333;
-    padding: 2px 2px;
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    margin: 4px;
+.button2:hover {
+    background-color: #d6d6d6;
 }
 
 .button3 {
     background-color: #555aa5;
     color: white;
-    border: none;
-    cursor: pointer;
-    padding: 2px 2px;
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    margin: 4px;
-    pointer-events: none;
+    cursor: default;
+    pointer-events: none; /* Disable interaction */
 }
 
-button:hover {
-    background-color: #d71d67;
+.button4 {
+    background-color: #333;
+    color: white;
 }
 
 .menu {
     display: flex; /* Makes the menu links inline */
-    gap: 15px; /* Adds spacing between the links */
+    gap: 40px; /* Adds spacing between the links */
+    margin-right: 20px;
 }
+
 .menu a {
+    font-size: medium;
+    font-weight: normal;
     text-decoration: none;
-    color: white;
-    padding: 10px;
+    color: #e3e3e3;
+    padding: 12px;
+    border-radius: 10px;
 }
 
 .menu a:hover {
-    background-color: #ddd;
-    color: black;
+    background-color: #555aa5;
 }
 
 .booked_date {
     color: #d71d67;
 }
 
+.calendar_container {
+    border-radius: 65px;
+    padding: 30px;
+    text-align: center;
+    margin: auto;
+}
+
 .calendar_buttons {
     display: grid;
-    width: 363px;
-    grid-template-columns: repeat(7, 1fr);
-    align-items: left;
-    text-align: left;
-    padding: 10px;
+    width: 100%; /* Make calendar take full width */
+    max-width: 360px; /* Set a maximum width */
+    grid-template-columns: repeat(7, 1fr); /* Ensure 7 equal columns */
+    gap: 10px; /* Add spacing between buttons */
+    justify-content: center; /* Center the grid */
+    align-items: center;
+    text-align: center;
+    padding: 30px;
     margin: auto;
 }
 
 .calendar_headers {
     color: #333;
     margin: auto;
+    font-weight: bold;
+    text-align: center;
+}
+
+.calendar-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 360px; /* Match calendar width */
+    margin: 20px auto; /* Center navigation above the calendar */
+    text-align: center;
+}
+a {
+    text-decoration: none;
+}
+
+.calendar-navigation h1 {
+    font-size: 1.5em;
+    margin: 0;
+    color: #333;
+}
+
+h2 {
+    font-size: 1.2em;
+    margin: 0;
+    color: #333;
+}
+
+.nav-btn {
+    background-color: #333; /* Same as button3 */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    width: 40px; /* Same size as calendar buttons */
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.nav-btn:hover {
+    background-color: #d6d6d6;
+}
+
+.nav-btn:active {
+    background-color: #d6d6d6
+}
+
+.sub_button_container {
+    padding: 20px;
+    text-align: center;
+}
+
+.right_aligned_btn {
+    background-color: #333;
+    font-size: large;
+    padding: 15px 50px;
+    border-radius: 8px;
+    width: auto;
 }

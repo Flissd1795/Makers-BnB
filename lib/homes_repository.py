@@ -41,21 +41,19 @@ class HomesRepository:
             all_homes.append(item)
         return all_homes
     
-    def load_calendar_page(self, booked_dates, offset=-299):
+    def load_calendar_page(self, booked_dates, offset=0):
         cal = calendar.TextCalendar()
         today = datetime.date.today()
 
+        # Calculate the adjusted month and year based on the offset
         month_to_inspect = today.month + (offset % 12)
         year_to_inspect = today.year + (offset // 12)
 
         days_on_page = []
-        for date in booked_dates:
-            print(f'booked date: {date}')
         for day in cal.itermonthdays3(year=year_to_inspect, month=month_to_inspect):
             day_as_datetime = datetime.date(day[0], day[1], day[2])
-            is_booked = False
-            print(f'day as datetime: {day_as_datetime}')
-            if day_as_datetime in booked_dates:
-                is_booked = True
+            is_booked = day_as_datetime in booked_dates
             days_on_page.append((day_as_datetime, is_booked))
+
         return days_on_page
+

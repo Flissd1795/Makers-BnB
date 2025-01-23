@@ -45,7 +45,7 @@ CREATE TABLE requests (
 INSERT INTO users (username, email, password) VALUES ('test_username', 'test@email.com', 'test_password');
 INSERT INTO users (username, email, password) VALUES ('test_username2', 'test2@email.com', 'test_password2');
 
-INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('test_title', 'test_description', 'test_location', 100, 1);
+INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Hotel room I found the key for', 'This wonderful room has an amazing city view. There is one ensuite bathroom, and three leopards. I do not know how they got in.', 'Central London (most of the time)', 100, 1);
 INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('test_title2', 'test_description2', 'test_location2', 100, 2);
 
 INSERT INTO requests (status, date_submitted, home_id, user_id, start_date, end_date) VALUES ('unseen', '2000-01-01', '1', '1', '2000-02-05', '2000-02-07');
