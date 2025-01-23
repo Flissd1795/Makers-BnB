@@ -98,35 +98,47 @@
             <!-- List of requests made by user -->
             <div class="request-list">
                 <h2>Requests Made</h2>
-                <div class="request-item" onclick="location.href='/individual_request';">
-                    Request 1 (redirects to Individual Home)
-                </div>
-                <div class="request-item" onclick="location.href='/individual_request';">
-                    Request 2 (redirects to Individual Home)
-                </div>
+                {% if requests_made %}
+                    {% for request in requests_made %}
+                        <div class="request-item" onclick="location.href='/individual_request/{{ request.id }}';">
+                            {{ request.home_title }} (Check-in: {{ request.start_date }}, Check-out: {{ request.end_date }})
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No requests made.</p>
+                {% endif %}
             </div>
             <!-- List of requests received by user -->
             <div class="request-list">
                 <h2>Requests Received</h2>
-                <div class="request-item" onclick="location.href='/authenticate_request';">
-                    Request 1 (redirects to Authenticate Request)
-                </div>
-                <div class="request-item" onclick="location.href='/authenticate_request';">
-                    Request 2 (redirects to Authenticate Request)
-                </div>
+                {% if requests_received %}
+                    {% for request in requests_received %}
+                        <div class="request-item" onclick="location.href='/auth_request/{{ request.id }}';">
+                            {{ request.requester_username }} requested {{ request.home_title }} 
+                            (Check-in: {{ request.start_date }}, Check-out: {{ request.end_date }})
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No requests received.</p>
+                {% endif %}
             </div>
         </div>
-        <h2 class="heading">Your Listings</h1>
-        {% for home in homes|reverse %}
-            <article class="individual-home">
-            <div>
-                <a href="/show_home/{{ home.id }}">{{ home.title }}</a>
-                <p class="t-description">Description: {{ home.description }}</p>
-                <p class="t-location">Location: {{ home.location }}</p>
-                <p class="t-price">Price per night: £{{ home.price_per_night }}</p>
-            </div>
-            </article>
-        {% endfor %}
+        <!-- Listings Section -->
+        <h2 class="heading">Your Listings</h2>
+        {% if homes %}
+            {% for home in homes|reverse %}
+                <article class="individual-home">
+                    <div>
+                        <a href="/show_home/{{ home.id }}">{{ home.title }}</a>
+                        <p class="t-description">Description: {{ home.description }}</p>
+                        <p class="t-location">Location: {{ home.location }}</p>
+                        <p class="t-price">Price per night: £{{ home.price_per_night }}</p>
+                    </div>
+                </article>
+            {% endfor %}
+        {% else %}
+            <p>You have no listings.</p>
+        {% endif %}
     </div>
 </body>
 </html>
