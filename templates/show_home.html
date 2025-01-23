@@ -16,72 +16,172 @@
             <a href="/logout">Logout</a>
         </div>
     </div>
-    <div class="title_container">
-        <h1>{{home.title}}</h1>
-    </div>
-    <div class="description_container">
-        <p>Description: {{home.description}}</p>
-        <p>Location: {{home.location}}</p>
-        <p>Price per night: {{home.price_per_night}}</p>
-        <p>Owner: {{home_owner}}</p>
-        <h1>Booked dates:</h1>
-        {% for date in calendar_dates %}
-            {% if date[1] == True %}
-            <div class="booked_date">
-                {{date[0]}}
+    <div class="content_container">
+        <div class="description_container">
+            <div class="title_container">
+                <h1>{{home.title}}</h1>
             </div>
-            {% endif %}
-        {% endfor %}
-    <div class="check_in_container">
-        <h1>Select your dates</h1>
-        <form action="/book" method="POST">
-            <label for="start-date">Check-in:</label>
-            <input type="date" id="start-date" name="start_date" required>
-            <label for="end-date">Check-out:</label>
-            <input type="date" id="end-date" name="end_date" required>
-            <input type="hidden" name="home_id" value="{{home.id}}">
-            <button type="submit" class="button">Reserve Home</button>
-        </form>
+            <p>Description: {{home.description}}</p>
+            <p>Location: {{home.location}}</p>
+            <p>Price per night: {{home.price_per_night}}</p>
+            <p>Owner: {{home_owner}}</p>
+        </div>
+        <div class="calendar_container">
+            <h1>Book your stay:</h1>
+            <div class="calendar-navigation">
+                <a href="{{ url_for('get_show_home', id=home.id, offset=current_offset -    1, start_date=request.args.get('start_date'), end_date=request.args.get    ('end_date')) }}">
+                    <button class="nav-btn prev-btn">&lt;</button> <!-- Left chevron for    previous month -->
+                </a>
+                <h1>{{ calendar_month }}</h1>
+                <a href="{{ url_for('get_show_home', id=home.id, offset=current_offset +    1, start_date=request.args.get('start_date'), end_date=request.args.get    ('end_date')) }}">
+                    <button class="nav-btn next-btn">&gt;</button> <!-- Right chevron for   next month -->
+                </a>
+                <h2>{{ calendar_year }}</h2>
+            </div>
+            <div class="calendar_buttons">
+                <div class="calendar_headers">Mon</div>
+                <div class="calendar_headers">Tue</div>
+                <div class="calendar_headers">Wed</div>
+                <div class="calendar_headers">Thu</div>
+                <div class="calendar_headers">Fri</div>
+                <div class="calendar_headers">Sat</div>
+                <div class="calendar_headers">Sun</div>
+                {% for date in calendar_dates %}
+                    {% if date[1] == True %}
+                        <button 
+                            type="button" 
+                            class="button3 calendar-btn" 
+                            data-date="{{ date[0] }}">
+                            {{ date[0].day }}
+                        </button>
+                    {% elif date[0].month == calendar_dates[10][0].month %}
+                        <button 
+                            type="button" 
+                            class="button2 calendar-btn" 
+                            data-date="{{ date[0] }}">
+                            {{ date[0].day }}
+                        </button>
+                    {% else %}
+                        <button 
+                            type="button" 
+                            class="button4 calendar-btn" 
+                            data-date="{{ date[0] }}">
+                            {{ date[0].day }}
+                        </button>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <!-- Add a submit button to finalize the selected dates -->
+            <div class=sub_button_container>
+                <button id="submit-dates" class="right_aligned_btn">Submit Selected Dates</ button>
+            </div>
+        </div>
     </div>
+
+
+
     <script>
-        document.getElementById('booking-form').addEventListener('submit', function(event) {
-            const startDateInput = document.getElementById('start-date');
-            const endDateInput = document.getElementById('end-date');
+        document.addEventListener('DOMContentLoaded', () => {
+            let startDate = localStorage.getItem('startDate') || null;
+            let endDate = localStorage.getItem('endDate') || null;
     
-            // Convert to YYYY/MM/DD format
-            const formatToYYYYMMDD = (dateStr) => {
-                const [year, month, day] = dateStr.split('-');
-                return `${year}/${month}/${day}`;
-            };
+            const calendarButtons = document.querySelectorAll('.calendar-btn');
     
-            // Update input values to the new format
-            startDateInput.value = formatToYYYYMMDD(startDateInput.value);
-            endDateInput.value = formatToYYYYMMDD(endDateInput.value);
+            // Restore previously selected dates from localStorage
+            function restoreSelections() {
+                if (startDate || endDate) {
+                    updateCalendarSelection();
+                }
+            }
+    
+            calendarButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const selectedDate = button.getAttribute('data-date');
+    
+                    if (!startDate || (startDate && endDate)) {
+                        // Set as start date if none is selected or both start andend dates are set
+                        startDate = selectedDate;
+                        endDate = null; // Clear the end date when reselecting thestart date
+                    } else if (!endDate && new Date(selectedDate) > new Dat(startDate)) {
+                        // Set as end date if it is greater than the start date
+                        endDate = selectedDate;
+                    } else {
+                        // If invalid selection (e.g., selecting an earlier datefor the end date), reset
+                        startDate = selectedDate;
+                        endDate = null;
+                    }
+    
+                    // Save to localStorage
+                    localStorage.setItem('startDate', startDate || '');
+                    localStorage.setItem('endDate', endDate || '');
+    
+                    updateCalendarSelection();
+                });
+            });
+    
+            // Function to visually update the calendar buttons
+            function updateCalendarSelection() {
+                calendarButtons.forEach(button => {
+                    const buttonDate = button.getAttribute('data-date');
+                    button.classList.remove('selected-start', 'selected-end','selected-range');
+    
+                    if (buttonDate === startDate) {
+                        button.classList.add('selected-start');
+                    } else if (buttonDate === endDate) {
+                        button.classList.add('selected-end');
+                    } else if (
+                        startDate &&
+                        endDate &&
+                        new Date(buttonDate) > new Date(startDate) &&
+                        new Date(buttonDate) < new Date(endDate)
+                    ) {
+                        button.classList.add('selected-range');
+                    }
+                });
+            }
+    
+            // Submit button handler
+            const submitButton = document.getElementById('submit-dates');
+            submitButton.addEventListener('click', () => {
+                if (startDate && endDate) {
+                    console.log('Start Date:', startDate);
+                    console.log('End Date:', endDate);
+    
+                    // Add code here to submit the dates, e.g., via a form or AJAX
+                    // Example:
+                    // fetch('/submit-dates', {
+                    //     method: 'POST',
+                    //     headers: {
+                    //         'Content-Type': 'application/json',
+                    //     },
+                    //     body: JSON.stringify({ startDate, endDate }),
+                    // })
+                    // .then(response => response.json())
+                    // .then(data => console.log(data));
+                } else {
+                    alert('Please select both a start and end date.');
+                }
+            });
+    
+            // Restore selections on page load
+            restoreSelections();
         });
     </script>
-        <h1>{{calendar_month}}</h1>
-        <h2>{{calendar_dates[10][0].year}}</h2>
-        <div class="calendar_buttons">
-            <div class="calendar_headers">Mon</div>
-            <div class="calendar_headers">Tue</div>
-            <div class="calendar_headers">Wed</div>
-            <div class="calendar_headers">Thu</div>
-            <div class="calendar_headers">Fri</div>
-            <div class="calendar_headers">Sat</div>
-            <div class="calendar_headers">Sun</div>
-            {% for date in calendar_dates %}
-                {% if date[1] == True %}
-                        <button type="button" name="{{date[0].day}}" value="{{date[0]}}" class="button3">{{date[0].day}}</button>
-                {% elif date[0].month == calendar_dates[10][0].month %}
-                    <form action="" method="POST">
-                        <button type="submit" name="{{date[0].day}}" value="{{date[0]}}" class="button2">{{date[0].day}}</button>
-                    </form>
-                {% else %}
-                    <form action="" method="POST">
-                        <button type="submit" name="{{date[0].day}}" value="{{date[0]}}" class="button4">{{date[0].day}}</button>
-                    </form>
-                {% endif %}
-            {% endfor %}
-        </div>
+    <script>
+        //    document.getElementById('booking-form').addEventListener('submit',function(event) {
+        //        const startDateInput = document.getElementById('start-date');
+        //        const endDateInput = document.getElementById('end-date');
+        //
+        //        // Convert to YYYY/MM/DD format
+        //        const formatToYYYYMMDD = (dateStr) => {
+        //            const [year, month, day] = dateStr.split('-');
+        //            return `${year}/${month}/${day}`;
+        //        };
+        //
+        //        // Update input values to the new format
+        //        startDateInput.value = formatToYYYYMMDD(startDateInput.value);
+        //        endDateInput.value = formatToYYYYMMDD(endDateInput.value);
+        //    });
+    </script>
 </body>
 </html>

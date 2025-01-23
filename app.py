@@ -82,21 +82,24 @@ def get_create_home():
 
 @app.route('/show_home/<id>', methods=['GET'])
 def get_show_home(id):
+    offset = int(request.args.get('offset', 0))  # Get the offset from query parameters, default to 0
     connection = get_flask_database_connection(app)
     repository = HomesRepository(connection)
     home = repository.find(id)
     user = UserRepository(connection).get_username(home.user_id)
     user = user.get('username')
     booked_dates = repository.fetch_booked_dates(id)
-    days_on_calendar_page = repository.load_calendar_page(booked_dates)
+    days_on_calendar_page = repository.load_calendar_page(booked_dates, offset=offset)
     return render_template(
         'show_home.html', 
         home=home, 
         home_owner=user, 
         calendar_dates=days_on_calendar_page,
         calendar_month=days_on_calendar_page[10][0].strftime("%B"),
-        start_date=0
-        )
+        calendar_year=days_on_calendar_page[10][0].year,  # Pass the year for better navigation context
+        current_offset=offset  # Pass the current offset to the template
+    )
+
 
 #@app.route("/show_home/<id>", methods=["POST"])
 #def book(id):
