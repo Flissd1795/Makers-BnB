@@ -123,3 +123,36 @@ class RequestRepository:
         return formatted_requests
         
 
+    def get_request_details(self, request_id):
+        query = """
+        SELECT 
+            requests.id AS request_id,
+            requests.status,
+            requests.date_submitted,
+            requests.start_date,
+            requests.end_date,
+            homes.title AS home_title,
+            homes.location AS home_location,
+            users.username AS requester_username,
+            users.email AS requester_email
+        FROM requests
+        JOIN homes ON requests.home_id = homes.id
+        JOIN users ON requests.user_id = users.id
+        WHERE requests.id = %s;
+        """
+        result = self._connection.execute(query, [request_id])
+
+        if result:
+            row = result[0]
+            return {
+                'id': row['request_id'],
+                'status': row['status'],
+                'date_submitted': row['date_submitted'],
+                'start_date': row['start_date'],
+                'end_date': row['end_date'],
+                'home_title': row['home_title'],
+                'home_location': row['home_location'],
+                'requester_username': row['requester_username'],
+                'requester_email': row['requester_email'],
+            }
+        return None
