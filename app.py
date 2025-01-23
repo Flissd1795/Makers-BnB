@@ -81,8 +81,34 @@ def get_show_home(id):
     user = UserRepository(connection).get_username(home.user_id)
     user = user.get('username')
     booked_dates = repository.fetch_booked_dates(id)
-    return render_template('show_home.html', home=home, home_owner=user, month=range(1, 32), booked_dates=booked_dates)
+    return render_template('show_home.html', home=home, home_owner=user, month=range(1, 32), booked_dates=booked_dates, start_date=0)
 
+#@app.route("/show_home/<id>", methods=["POST"])
+#def book(id):
+#    start_date = request.form.get("day")
+#    if start_date == 1:
+#        connection = get_flask_database_connection(app)
+#        repository = HomesRepository(connection)
+#        home = repository.find(id)
+#        user = UserRepository(connection).get_username(home.user_id)
+#        user = user.get('username')
+#        booked_dates = repository.fetch_booked_dates(id)
+#        return render_template('show_home.html', home=home, home_owner=user, month=range(1, 32), booked_dates=booked_dates, start_date=start_date)
+#    else:
+#        end_date = request.form.get("day")
+#        print(f"start date: {start_date}, end date: {end_date}")
+#        # Perform booking logic here (e.g., save to database, check availability, etc.)
+#        
+#    if not start_date or not end_date:
+#        return "Please select both dates."
+#
+#        # Ensure the end date is not earlier than the start date
+#        
+#    if start_date > end_date:
+#        return "Error: Check-out date must be after check-in date."
+#    
+#    return render_template("index.html")
+  
 #@app.route("/show_home/<id>", methods=["POST"])
 #def book(id):
 #    if request.method == "POST":

@@ -66,10 +66,10 @@
             <div class="calendar_headers">Sat</div>
             <div class="calendar_headers">Sun</div>
             {% for day in month -%}
-                {% if day in booked_dates -%}
-                    <form action="" method="POST">
+                {% if start_date == day -%}
+                    <button type="button" name="day" value="{{day}}" class="button2">{{day}}</button>
+                {% elif day in booked_dates -%}
                         <button type="button" name=day value="{{day}}" class="button3">{{day}}</button>
-                    </form>
                 {% else -%}
                     <form action="" method="POST">
                         <button type="submit" name="day" value="{{day}}" class="button2">{{day}}</button>
