@@ -32,38 +32,55 @@ class HomesRepository:
         return booked_dates
     
 
-    # def filter_by_location(self, location):
-    #     query = """
-    #     SELECT 
-    #         id, 
-    #         title, 
-    #         description, 
-    #         location, 
-    #         price_per_night 
-    #     FROM homes
-    #     WHERE location = %s;
-    #     """
-    #     rows = self._connection.execute(query, (location,))
-    #     formatted_location_filter = [
-    #         f"Home({row['id']}, {row['title']}, {row['description']}, {row['location']}, {row['price_per_night']})"
-    #     for row in rows
-    #     ]
-    #     return formatted_location_filter
+    def filter_by_location(self, location):
+        query = """
+        SELECT 
+            id, 
+            title, 
+            description, 
+            location, 
+            price_per_night 
+        FROM homes
+        WHERE location = %s;
+        """
+        rows = self._connection.execute(query, (location,))
+        formatted_location_filter = [
+            f"Home({row['id']}, {row['title']}, {row['description']}, {row['location']}, {row['price_per_night']})"
+        for row in rows
+        ]
+        return formatted_location_filter
     
-    # def filter_by_price(self, price_per_night):
-    #     query = """
-    #     SELECT 
-    #         id, 
-    #         title, 
-    #         description, 
-    #         location, 
-    #         price_per_night 
-    #     FROM homes
-    #     WHERE location = %s;
-    #     """
-    #     rows = self._connection.execute(query, (price_per_night,))
-    #     formatted_price_per_night_filter = [
-    #         f"Home({row['id']}, {row['title']}, {row['description']}, {row['location']}, {row['price_per_night']})"
-    #     for row in rows
-    #     ]
-    #     return formatted_price_per_night_filter
+
+
+
+    def filter_by_price(self, min_price, max_price):
+        """
+        Filters homes by a price range (min_price to max_price).
+
+        Args:
+            min_price (float): The minimum price per night.
+            max_price (float): The maximum price per night.
+
+        Returns:
+            list: A list of formatted strings representing the homes within the price range.
+        """
+        query = """
+        SELECT 
+            id, 
+            title, 
+            description, 
+            location, 
+            price_per_night 
+        FROM homes
+        WHERE price_per_night BETWEEN %s AND %s;
+        """
+        # Execute the query with the price range as parameters
+        rows = self._connection.execute(query, (min_price, max_price))
+
+        # Format the result rows
+        formatted_homes = [
+            f"Home({row['id']}, {row['title']}, {row['description']}, {row['location']}, {row['price_per_night']})"
+            for row in rows
+        ]
+        
+        return formatted_homes
