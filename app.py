@@ -26,6 +26,13 @@ def start_session():
 # Returns the homepage
 # Try it:
 #   ; open http://localhost:5001/index
+
+@app.route('/seed', methods=['GET'])
+def seed():
+    connection = get_flask_database_connection(app)
+    connection.seed('seeds/music_web_app_html.sql')
+    return 'Database seeded'
+
 @app.route('/index', methods=['GET'])
 def get_index():
     connection = get_flask_database_connection(app)
@@ -153,6 +160,21 @@ def get_auth_requests(id):
     request_details = repository.get_request_details(id)
     return render_template('auth_request.html', request=request_details)
 
+@app.route('/confirm', methods=['POST'])
+def confirm_request():
+    connection = get_flask_database_connection(app)
+    repository = RequestRepository(connection)
+    request_id = request.form['request_id']
+    repository.confirm_request(request_id)
+    return redirect(url_for('get_all_requests'))
+
+@app.route('/deny', methods=['POST'])
+def deny_request():
+    connection = get_flask_database_connection(app)
+    repository = RequestRepository(connection)
+    request_id = request.form['request_id']
+    repository.delete_request(request_id)
+    return redirect(url_for('get_all_requests'))
 
 @app.route('/create_home', methods = ['POST'])
 def create_home():
