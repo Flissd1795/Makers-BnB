@@ -115,21 +115,25 @@
     </div>
     <!-- Page Heading -->
     <div class="title_container">
-        <h1>Requests Received</h1>
+        <h1>Request Received</h1>
     </div>
     <!-- Description Section -->
     <div class="description_container">
-        <p><strong>Home:</strong> (Name of Home)</p>
-        <p><strong>User Email:</strong> (User's Email)</p>
-        <p><strong>Date Submitted:</strong> (Submission Date)</p>
+        <p><strong>Home:</strong> {{ request.home_title }} ({{ request.home_location }})</p>
+        <p><strong>Requested By:</strong> {{ request.requester_username }} ({{ request.requester_email }})</p>
+        <p><strong>Date Submitted:</strong> {{ request.date_submitted }}</p>
+        <p><strong>Check-in:</strong> {{ request.start_date }}</p>
+        <p><strong>Check-out:</strong> {{ request.end_date }}</p>
     </div>
     <!-- Confirmation Section -->
     <div class="check_in_container">
         <h1>Respond to Request</h1>
-        <form action="/confirm" method="get">
+        <form action="/confirm" method="post">
+            <input type="hidden" name="request_id" value="{{ request.id }}">
             <button type="submit">Confirm Request</button>
         </form>
-        <form action="/deny" method="get">
+        <form action="/deny" method="post">
+            <input type="hidden" name="request_id" value="{{ request.id }}">
             <button type="submit" class="deny">Deny Request</button>
         </form>
     </div>

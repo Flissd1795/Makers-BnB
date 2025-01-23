@@ -143,9 +143,15 @@ def get_all_requests():
     homes = repository.find_all(users_id)
     return render_template('all_requests.html', homes=homes)
 
-@app.route('/auth_requests', methods=['GET'])
-def get_auth_requests():
-    return render_template('auth_request.html')
+@app.route('/auth_request/<id>', methods=['GET'])
+def get_auth_requests(id):
+    connection = get_flask_database_connection(app)
+    repository = RequestRepository(connection)
+    request = repository.find_request(id)
+    if not request:
+        return render_template('404.html'), 404
+    request_details = repository.get_request_details(id)
+    return render_template('auth_request.html', request=request_details)
 
 
 @app.route('/create_home', methods = ['POST'])
