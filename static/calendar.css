@@ -101,13 +101,25 @@ button {
     margin: 4px
 }
 
+.button3 {
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 2px 2px;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    margin: 4px
+}
+
 button:hover {
     background-color: #d71d67;
 }
 
 .menu {
     display: flex; /* Makes the menu links inline */
-gap: 15px; /* Adds spacing between the links */
+    gap: 15px; /* Adds spacing between the links */
 }
 .menu a {
     text-decoration: none;
@@ -122,4 +134,19 @@ gap: 15px; /* Adds spacing between the links */
 
 .booked_date {
     color: #d71d67;
+}
+
+.calendar_buttons {
+    display: grid;
+    width: 363px;
+    grid-template-columns: repeat(7, 1fr);
+    align-items: left;
+    text-align: left;
+    padding: 10px;
+    margin: auto;
+}
+
+.calendar_headers {
+    color: #333;
+    margin: auto;
 }

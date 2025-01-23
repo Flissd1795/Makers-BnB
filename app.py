@@ -26,7 +26,10 @@ def start_session():
 #   ; open http://localhost:5001/index
 @app.route('/index', methods=['GET'])
 def get_index():
-    return render_template('index.html')
+    connection = get_flask_database_connection(app)
+    repository = HomesRepository(connection)
+    homes = repository.all_homes()
+    return render_template('index.html', homes=homes)
 
 @app.route('/login', methods=['GET'])
 def get_login():
@@ -66,32 +69,23 @@ def get_logout():
 
 @app.route('/create_home', methods=['GET'])
 def get_create_home():
-    return render_template('create_home.html')
-
-
-@app.route('/show_home', methods=['GET'])
-def get_show_home():
-    # change this value
-    home_id = 1
-    # change this value
-    booked_dates = HomesRepository.fetch_booked_dates(home_id)
-    return render_template('show_home.html', booked_dates=booked_dates)
-
-@app.route("/show_home", methods=["POST"])
-def book():
+    return render_template('create_home.html', home=Home(None, None, None, None, None, None))
 
 @app.route('/show_home/<id>', methods=['GET'])
 def get_show_home(id):
     connection = get_flask_database_connection(app)
     repository = HomesRepository(connection)
+    home = repository.find(id)
+    user = UserRepository(connection).get_username(home.user_id)
+    user = user.get('username')
     booked_dates = repository.fetch_booked_dates(id)
-    return render_template('show_home.html', month=range(1, 32), booked_dates=booked_dates)
+    return render_template('show_home.html', home=home, home_owner=user, month=range(1, 32), booked_dates=booked_dates)
 
 @app.route("/show_home/<id>", methods=["POST"])
 def book(id):
     if request.method == "POST":
-        start_date = request.form.get("start_date")
-        end_date = request.form.get("end_date")
+        start_date = request.form.get("day")
+        end_date = request.form.get("day")
 
         if not start_date or not end_date:
             return "Please select both dates."
@@ -107,7 +101,11 @@ def book(id):
 
 @app.route('/all_requests', methods=['GET'])
 def get_all_requests():
-    return render_template('all_requests.html')
+    connection = get_flask_database_connection(app)
+    repository = HomesRepository(connection)
+    users_id = session.get('users_id') 
+    homes = repository.find_all(users_id)
+    return render_template('all_requests.html', homes=homes)
 
 @app.route('/auth_requests', methods=['GET'])
 def get_auth_requests():
@@ -127,9 +125,11 @@ def create_home():
     price_per_night = request.form['price_per_night']
     home = Home(None, title, description, location, price_per_night, int(users_id))
     if not home.is_valid():
-        return render_template('login.html', home=home, errors=home.generate_errors()), 400
+        return render_template('create_home.html', home=home, errors=home.generate_errors()), 400
     repository.create_home(title, description, location, price_per_night, int(users_id))
     return redirect(url_for('get_index'))
+
+
 
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database

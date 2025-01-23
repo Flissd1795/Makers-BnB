@@ -99,10 +99,10 @@
     {% for home in homes|reverse %}
     <article class="individual-home">
       <div>
-        <p class="t-title">"{{ home.title }}"</p>
-        <p class="t-description">{{ home.description }}</p>
+        <a href="/show_home/{{ home.id }}">{{ home.title }}</a>
+        <p class="t-description">Description: {{ home.description }}</p>
         <p class="t-location">Location: {{ home.location }}</p>
-        <p class="t-price">Price: £{{ home.price_per_night }}</p>
+        <p class="t-price">Price per night: £{{ home.price_per_night }}</p>
       </div>
     </article>
     {% endfor %}

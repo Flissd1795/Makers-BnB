@@ -23,7 +23,16 @@ class Home:
             return False
         if self.price_per_night == None or self.price_per_night == "":
             return False
+        if not self.is_float(self.price_per_night) or float(self.price_per_night) <= 0:
+            return False
         return True
+    
+    def is_float(self, price_per_night):
+        try:
+            float(price_per_night)
+            return True
+        except ValueError:
+            return False
 
     def generate_errors(self):
         errors = []
@@ -35,6 +44,13 @@ class Home:
             errors.append("Location is required")
         if self.price_per_night == None or self.price_per_night == "":
             errors.append("Price per night is required")
-        if not self.price_per_night.isdigit():
-            errors.append("Price per night must be a number")
+        if not self.is_float(self.price_per_night) or float(self.price_per_night) <= 0:
+            errors.append("Price per night must be a positive number")
         return errors
+        # if not isinstance(self.price_per_night, (int, float)):
+        #     errors.append("Price per night must be a number")
+        # if int(self.price_per_night) <= 0:
+        #     errors.append("Price per night must be a positive number")
+        return errors
+
+    

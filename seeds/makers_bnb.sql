@@ -21,7 +21,7 @@ CREATE TABLE homes (
     title VARCHAR(255),
     description VARCHAR(255),
     location VARCHAR(255),
-    price_per_night int, 
+    price_per_night float, 
     user_id int,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
