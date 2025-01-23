@@ -94,28 +94,34 @@
     </div>
     <div class="container">
         <h1 class="heading">Requests</h1>
-        <div class="requests-section">
-            <!-- List of requests made by user -->
+        <div class="requests-container">
+            <!-- Requests Made -->
             <div class="request-list">
                 <h2>Requests Made</h2>
                 {% if requests_made %}
                     {% for request in requests_made %}
-                        <div class="request-item" onclick="location.href='/individual_request/{{ request.id }}';">
-                            {{ request.home_title }} (Check-in: {{ request.start_date }}, Check-out: {{ request.end_date }})
+                        <div class="request-item">
+                            <p>Home: {{ request['home_title'] }}</p>
+                            <p>Status: {{ request['status'] }}</p>
+                            <p>Start Date: {{ request['start_date'] }}</p>
+                            <p>End Date: {{ request['end_date'] }}</p>
                         </div>
                     {% endfor %}
                 {% else %}
                     <p>No requests made.</p>
                 {% endif %}
             </div>
-            <!-- List of requests received by user -->
+        
+            <!-- Requests Received -->
             <div class="request-list">
                 <h2>Requests Received</h2>
                 {% if requests_received %}
                     {% for request in requests_received %}
-                        <div class="request-item" onclick="location.href='/auth_request/{{ request.id }}';">
-                            {{ request.requester_username }} requested {{ request.home_title }} 
-                            (Check-in: {{ request.start_date }}, Check-out: {{ request.end_date }})
+                        <div class="request-item" onclick="location.href='/auth_request/{{ request.request_id }}';"> 
+                            <p>Home: {{ request['home_title'] }}</p>
+                            <p>Status: {{ request['status'] }}</p>
+                            <p>Start Date: {{ request['start_date'] }}</p>
+                            <p>End Date: {{ request['end_date'] }}</p>
                         </div>
                     {% endfor %}
                 {% else %}

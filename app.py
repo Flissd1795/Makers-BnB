@@ -145,13 +145,35 @@ def get_show_home(id):
 #    
 #    return render_template("index.html")
 
+# @app.route('/all_requests', methods=['GET'])
+# def get_all_requests():
+#     connection = get_flask_database_connection(app)
+#     repository = HomesRepository(connection)
+#     users_id = session.get('users_id') 
+#     homes = repository.find_all(users_id)
+#     return render_template('all_requests.html', homes=homes)
+
 @app.route('/all_requests', methods=['GET'])
 def get_all_requests():
     connection = get_flask_database_connection(app)
+    request_repository = RequestRepository(connection)
     repository = HomesRepository(connection)
-    users_id = session.get('users_id') 
+
+    users_id = session.get('users_id')  # Get the current user's ID from the session
+    if not users_id:
+        return redirect(url_for('login'))  # Redirect to login if user is not logged in
+
+    # Fetch requests made and requests received
+    requests_made = request_repository.list_requests_by_user_id(users_id)
+    requests_received = request_repository.list_requests_by_home_owner(users_id)
     homes = repository.find_all(users_id)
-    return render_template('all_requests.html', homes=homes)
+    # Pass the lists to the template
+    return render_template(
+        'all_requests.html',
+        requests_made=requests_made,
+        requests_received=requests_received,
+        homes=homes
+    )
 
 @app.route('/auth_request/<id>', methods=['GET'])
 def get_auth_requests(id):

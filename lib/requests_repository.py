@@ -70,8 +70,91 @@ class RequestRepository:
     List requests sent by a specific user.
     Executes the query to retrieve requests where the specified user is the requester (requests.user_id = %s).
     """
+    # def list_requests_by_user_id(self, user_id):
+    #     # SQL query to fetch user requests and associated home details
+    #     query = """
+    #     SELECT 
+    #         requests.id AS request_id,
+    #         requests.status,
+    #         requests.date_submitted,
+    #         requests.start_date,
+    #         requests.end_date,
+    #         homes.title AS home_title,
+    #         homes.location AS home_location,
+    #         homes.price_per_night
+    #     FROM requests
+    #     JOIN homes ON requests.home_id = homes.id
+    #     WHERE requests.user_id = %s;
+    #     """
+    #     # Directly execute the query using self._connection
+    #     # Use fetchall() or similar methods depending on the DB driver
+    #     rows = self._connection.execute(query, (user_id,))
+    #     formatted_requests = [
+    #         f"Request({row['request_id']}, {row['status']}, {row['date_submitted']}, {row['start_date']}, {row['end_date']}, {row['home_title']}, {row['home_location']}, {row['price_per_night']})"
+    #     for row in rows
+    #     ]
+    #     # Return the results
+    #     return formatted_requests
+#    
+#    def list_requests_by_user_id(self, user_id):
+#        query = """
+#        SELECT 
+#            requests.id AS request_id,
+#            requests.status,
+#            requests.date_submitted,
+#            requests.start_date,
+#            requests.end_date,
+#            homes.title AS home_title
+#        FROM requests
+#        JOIN homes ON requests.home_id = homes.id
+#        WHERE requests.user_id = %s;
+#        """
+#        rows = self._connection.execute(query, [user_id])
+#        return [
+#            {
+#                "id": row["request_id"],
+#                "status": row["status"],
+#                "date_submitted": row["date_submitted"],
+#                "start_date": row["start_date"],
+#                "end_date": row["end_date"],
+#                "home_title": row["home_title"]
+#            }
+#        for row in rows
+#        ]
+#
+#    '''
+#    List requests received to a specific home
+#    Get all requests made to a users home
+#    '''
+#    # same functionality as the above method but using home id
+#    def list_requests_by_home_id(self, home_id):
+#        query = """
+#        SELECT 
+#            requests.id AS request_id,
+#            requests.status,
+#            requests.start_date,
+#            requests.end_date,
+#            homes.title AS home_title
+#        FROM requests
+#        JOIN homes ON requests.home_id = homes.id
+#        WHERE requests.user_id = %s;
+#        """
+#        rows = self._connection.execute(query, (home_id,))
+#        return [
+#            {
+#                "id": row["request_id"],
+#                "status": row["status"],
+#                "date_submitted": row["date_submitted"],
+#                "start_date": row["start_date"],
+#                "end_date": row["end_date"],
+#                "username": row["requester_username"],
+#                "email": row["requester_email"]
+#            }
+#        for row in rows
+#        ]
+#
+#    '''
     def list_requests_by_user_id(self, user_id):
-        # SQL query to fetch user requests and associated home details
         query = """
         SELECT 
             requests.id AS request_id,
@@ -79,29 +162,15 @@ class RequestRepository:
             requests.date_submitted,
             requests.start_date,
             requests.end_date,
-            homes.title AS home_title,
-            homes.location AS home_location,
-            homes.price_per_night
+            homes.title AS home_title
         FROM requests
         JOIN homes ON requests.home_id = homes.id
         WHERE requests.user_id = %s;
         """
-        # Directly execute the query using self._connection
-        # Use fetchall() or similar methods depending on the DB driver
-        rows = self._connection.execute(query, (user_id,))
-        formatted_requests = [
-            f"Request({row['request_id']}, {row['status']}, {row['date_submitted']}, {row['start_date']}, {row['end_date']}, {row['home_title']}, {row['home_location']}, {row['price_per_night']})"
-        for row in rows
-        ]
-        # Return the results
-        return formatted_requests
-    
-    '''
-    List requests received to a specific home
-    Get all requests made to a users home
-    '''
-    # same functionality as the above method but using home id
-    def list_requests_by_home_id(self, home_id):
+        rows = self._connection.execute(query, [user_id])
+        return rows
+
+    def list_requests_by_home_owner(self, owner_id):
         query = """
         SELECT 
             requests.id AS request_id,
@@ -109,20 +178,14 @@ class RequestRepository:
             requests.date_submitted,
             requests.start_date,
             requests.end_date,
-            users.username AS requester_username,
-            users.email AS requester_email
+            homes.title AS home_title
         FROM requests
-        JOIN users ON requests.user_id = users.id
-        WHERE requests.home_id = %s;
-    """
-        rows = self._connection.execute(query, (home_id,))
-        formatted_requests = [
-            f"Request({row['request_id']}, {row['status']}, {row['date_submitted']}, {row['start_date']}, {row['end_date']}, {row['requester_username']}, {row['requester_email']})"
-            for row in rows
-        ]
-        return formatted_requests
-        
-
+        JOIN homes ON requests.home_id = homes.id
+        WHERE homes.user_id = %s;
+        """
+        rows = self._connection.execute(query, [owner_id])
+        return rows
+    
     def get_request_details(self, request_id):
         query = """
         SELECT 
