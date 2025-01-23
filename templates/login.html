@@ -1,25 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <title>Login</title>
     <meta charset="utf-8">
-  </head>
-  <body>
-    <h1>Log in to MakersBnB</h1>
-    <form action="/login" method="post">
-      <p>
-        <label for="email">Enter email:</label>
-        <input type="email" name="email" id="email">
-        </p>
-        <p>
-        <label for="password">Enter password:</label>
-        <input type="password" name="password" id="password">
-      </p>
-      <p>
-        <input type="submit" value="Login"></p>
-        
-    </form>
-    <form action="/create_account" method="get">
-      <button type="submit">Create Account</button>
-    </form>
-    </body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F8F9FA;
+            color: #333;
+        }
+
+        .topnav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .topnav .logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .topnav .logo img {
+            width: 50px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .topnav .menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .topnav .menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .topnav .menu a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .form-container h1 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .form-container label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+
+        .form-container input:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        .form-container button, .form-container input[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-container button:hover, .form-container input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="topnav">
+        <div class="logo">
+            <img src="/static/MakersBnB_logo.png" alt="MakersBnB Logo">
+            MakersBnB
+        </div>
+        <div class="menu">
+            <a href="/index">All Homes</a>
+            <a href="/all_requests">Requests</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="form-container">
+            <h1>Log in to MakersBnB</h1>
+            <form action="/login" method="post">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required>
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" required>
+                <input type="submit" value="Login">
+            </form>
+            <form action="/create_account" method="get">
+                <button type="submit">Create Account</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

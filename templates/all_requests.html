@@ -5,79 +5,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Requests</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #F8F9FA;
-        }
-        .topnav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #333;
-            padding: 10px 20px;
-        }
-        .topnav .logo {
-            display: flex;
-            align-items: center;
-            color: white;
-            font-size: 1.5em;
-            font-weight: bold;
-        }
-        .topnav .logo img {
-            width: 50px;
-            height: auto;
-            margin-right: 10px;
-        }
-        .topnav .menu {
-            display: flex;
-            gap: 20px;
-        }
-        .topnav .menu a {
-            color: white;
-            text-decoration: none;
-            padding: 10px;
-        }
-        .topnav .menu a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-        .container {
-            padding: 20px;
-        }
-        .heading {
-            font-size: 2em;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .requests-section {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .request-list {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-        .request-list h2 {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-        }
-        .request-item {
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #F1F1F1;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .request-item:hover {
-            background-color: #E2E2E2;
-        }
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F8F9FA;
+    color: #333;
+}
+
+.topnav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.topnav .logo {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.topnav .logo img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.topnav .menu {
+    display: flex;
+    gap: 20px;
+}
+
+.topnav .menu a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.topnav .menu a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.container {
+    padding: 20px;
+}
+
+.heading {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #444;
+}
+
+.requests-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.request-list {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    flex: 1;
+    min-width: 280px;
+    max-width: 400px;
+}
+
+.request-list h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.request-item {
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: #F1F1F1;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.request-item:hover {
+    background-color: #E2E2E2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.individual-home {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.individual-home a {
+    font-weight: bold;
+    font-size: 1.2em;
+    text-decoration: none;
+    color: #007BFF;
+    transition: color 0.3s;
+}
+
+.individual-home a:hover {
+    color: #0056b3;
+}
+
+.individual-home p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.t-description, .t-location, .t-price {
+    font-size: 0.9em;
+}
     </style>
 </head>
 <body>
