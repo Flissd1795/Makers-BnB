@@ -111,6 +111,7 @@ def get_all_requests():
 def get_auth_requests():
     return render_template('auth_request.html')
 
+
 @app.route('/create_home', methods = ['POST'])
 def create_home():
     users_id = session.get('users_id') 
