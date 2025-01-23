@@ -3,84 +3,121 @@
 <head>
   <title>Welcome to MakersBnB!</title>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
+      background-color: #F8F9FA;
+      color: #333;
     }
 
-    .logo img {
-  width: 50px; /* Set a fixed width for the logo */
-  height: auto; /* Maintain aspect ratio */
-  padding: 5px; /* Add padding around the logo */
-  vertical-align: middle; /* Align the logo with the text (optional) */
-}
     .topnav {
       display: flex;
       justify-content: space-between;
-      align-items:center;
+      align-items: center;
       background-color: #333;
-      padding: 10px;
+      padding: 10px 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     }
 
-    .topnav a {
+    .topnav .logo {
+      display: flex;
+      align-items: center;
+      color: white;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .topnav .logo img {
+      width: 50px;
+      height: auto;
+      margin-right: 10px;
+    }
+
+    .topnav .menu {
+      display: flex;
+      gap: 20px;
+    }
+
+    .topnav .menu a {
       color: white;
       text-decoration: none;
       padding: 10px;
+      transition: background-color 0.3s, color 0.3s;
     }
 
-    .topnav a:hover {
+    .topnav .menu a:hover {
       background-color: #ddd;
       color: black;
     }
 
-    .logo {
-      font-size: 1.5em;
-      color: white;
-      font-weight: bold;
-    }
-
     .container {
       padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
     .heading {
       font-size: 2em;
       margin-bottom: 20px;
+      text-align: center;
     }
 
     .add-home {
-      margin-bottom: 20px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .add-home a {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      text-decoration: none;
+      font-size: 1.2em;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .add-home a:hover {
+      background-color: #0056b3;
     }
 
     .individual-home {
       border: 1px solid #ddd;
-      border-radius: 5px;
-      padding: 15px;
-      margin-bottom: 15px;
-      background-color: #f9f9f9;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      background-color: white;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
-    .menu {
-    display: flex; /* Makes the menu links inline */
-  gap: 15px; /* Adds spacing between the links */
-}
-.menu a {
-  color: white;
-  text-decoration: none;
-  padding: 10px;
-}
+    .individual-home a {
+      font-size: 1.5em;
+      font-weight: bold;
+      text-decoration: none;
+      color: #007BFF;
+      transition: color 0.3s;
+    }
 
-.menu a:hover {
-  background-color: #ddd;
-  color: black;
-}
+    .individual-home a:hover {
+      color: #0056b3;
+    }
+
+    .individual-home p {
+      margin: 10px 0;
+    }
+
   </style>
 </head>
 <body>
   <div class="topnav">
-    <div class="logo"> <img src="/static/MakersBnB_logo.png" alt="MakersBnB Logo">MakersBnB</div>
+    <div class="logo">
+      <img src="/static/MakersBnB_logo.png" alt="MakersBnB Logo">
+      MakersBnB
+    </div>
     <div class="menu">
       <a href="/index">All Homes</a>
       <a href="/all_requests">Requests</a>
@@ -90,28 +127,27 @@
 
   <div class="container">
     {% if session['users_id'] %}
-    <h1 class="heading">Welcome, {{ session['username'] }}</h1>
+      <h1 class="heading">Welcome, {{ session['username'] }}</h1>
 
-    <div class="add-home">
-      <a href="/create_home">Add Home</a>
-    </div>
+      <div class="add-home">
+        <a href="/create_home">+ Add New Home</a>
+      </div>
 
-    {% for home in homes|reverse %}
-    <article class="individual-home">
-      <div>
+      {% for home in homes|reverse %}
+      <article class="individual-home">
         <a href="/show_home/{{ home.id }}">{{ home.title }}</a>
         <p class="t-description">Description: {{ home.description }}</p>
         <p class="t-location">Location: {{ home.location }}</p>
         <p class="t-price">Price per night: £{{ home.price_per_night }}</p>
-      </div>
-    </article>
-    {% endfor %}
+      </article>
+      {% endfor %}
 
     {% else %}
-    <h1>Please log in to access your dashboard.</h1>
-    <a href="/login">Login</a>
+      <h1 class="heading">Please log in to access your dashboard.</h1>
+      <div class="add-home">
+        <a href="/login">Login</a>
+      </div>
     {% endif %}
   </div>
 </body>
 </html>
-
