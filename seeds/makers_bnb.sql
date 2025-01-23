@@ -30,12 +30,12 @@ CREATE SEQUENCE IF NOT EXISTS requests_id_seq;
 
 CREATE TABLE requests ( 
     id SERIAL PRIMARY KEY, 
-    status VARCHAR(255),
-    date_submitted DATE NOT NULL,
-    home_id INT NOT NULL, 
-    user_id INT NOT NULL,
-    start_date DATE NOT NULL,
-    end_date DATE NOT NULL,
+    status VARCHAR(255) DEFAULT 'unseen',
+    date_submitted DATE,
+    home_id INT, 
+    user_id INT,
+    start_date DATE,
+    end_date DATE,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
     FOREIGN KEY (home_id) REFERENCES homes (id) ON DELETE CASCADE
     
