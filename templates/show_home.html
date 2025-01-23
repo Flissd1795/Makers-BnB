@@ -8,72 +8,82 @@
 <body>
     <div class="topnav">
         <div class="logo">
-            <img src="/static/MakersBnB_logo.png" alt="MakersBnB Logo"> MakersBnB
+            <img src="/static/1200x600wa4.png" alt="MakersBnB Logo">
         </div>
         <div class="menu">
-            <a href="/index">All Homes</a>
+            <a href="/index">All homes</a>
             <a href="/all_requests">Requests</a>
             <a href="/logout">Logout</a>
         </div>
     </div>
-    <div class="content_container">
-        <div class="description_container">
-            <div class="title_container">
-                <h1>{{home.title}}</h1>
+    <div class="top_border"></div>
+    <div class="page_container">
+        <div class="content_container">
+            <div class="description_container">
+                <div class="property_pic_container">
+                    <img src="/static/example_room.jpg" alt="example room">
+                </div>
+                <div class="title_container">
+                    <h1>{{home.title}}</h1>
+                </div>
+                <p>Description: {{home.description}}</p>
+                <p>Location: {{home.location}}</p>
+                <p>Price per night: &#163;{{home.price_per_night}}</p>
+                <p>Owner: {{home_owner}}</p>
             </div>
-            <p>Description: {{home.description}}</p>
-            <p>Location: {{home.location}}</p>
-            <p>Price per night: {{home.price_per_night}}</p>
-            <p>Owner: {{home_owner}}</p>
-        </div>
-        <div class="calendar_container">
-            <h1>Book your stay:</h1>
-            <div class="calendar-navigation">
-                <a href="{{ url_for('get_show_home', id=home.id, offset=current_offset -    1, start_date=request.args.get('start_date'), end_date=request.args.get    ('end_date')) }}">
-                    <button class="nav-btn prev-btn">&lt;</button> <!-- Left chevron for    previous month -->
-                </a>
-                <h1>{{ calendar_month }}</h1>
-                <a href="{{ url_for('get_show_home', id=home.id, offset=current_offset +    1, start_date=request.args.get('start_date'), end_date=request.args.get    ('end_date')) }}">
-                    <button class="nav-btn next-btn">&gt;</button> <!-- Right chevron for   next month -->
-                </a>
-                <h2>{{ calendar_year }}</h2>
-            </div>
-            <div class="calendar_buttons">
-                <div class="calendar_headers">Mon</div>
-                <div class="calendar_headers">Tue</div>
-                <div class="calendar_headers">Wed</div>
-                <div class="calendar_headers">Thu</div>
-                <div class="calendar_headers">Fri</div>
-                <div class="calendar_headers">Sat</div>
-                <div class="calendar_headers">Sun</div>
-                {% for date in calendar_dates %}
-                    {% if date[1] == True %}
-                        <button 
-                            type="button" 
-                            class="button3 calendar-btn" 
-                            data-date="{{ date[0] }}">
-                            {{ date[0].day }}
-                        </button>
-                    {% elif date[0].month == calendar_dates[10][0].month %}
-                        <button 
-                            type="button" 
-                            class="button2 calendar-btn" 
-                            data-date="{{ date[0] }}">
-                            {{ date[0].day }}
-                        </button>
-                    {% else %}
-                        <button 
-                            type="button" 
-                            class="button4 calendar-btn" 
-                            data-date="{{ date[0] }}">
-                            {{ date[0].day }}
-                        </button>
-                    {% endif %}
-                {% endfor %}
-            </div>
-            <!-- Add a submit button to finalize the selected dates -->
-            <div class=sub_button_container>
-                <button id="submit-dates" class="right_aligned_btn">Submit Selected Dates</ button>
+            <div class="calendar_container">
+                <h1></h1>
+                <div class="calendar-navigation">
+                    <a href="{{ url_for('get_show_home', id=home.id, offset=current_offset  -    1, start_date=request.args.get('start_date'), end_date=request. args.get    ('end_date')) }}">
+                        <button class="nav-btn prev-btn">&lt;</button> <!-- Left chevron    for    previous month -->
+                    </a>
+                    <h1>{{ calendar_month }}</h1>
+                    <a href="{{ url_for('get_show_home', id=home.id, offset=current_offset  +    1, start_date=request.args.get('start_date'), end_date=request. args.get    ('end_date')) }}">
+                        <button class="nav-btn next-btn">&gt;</button> <!-- Right chevron   for   next month -->
+                    </a>
+                    <h2>{{ calendar_year }}</h2>
+                </div>
+                <div class="calendar_buttons">
+                    <div class="calendar_headers">Mon</div>
+                    <div class="calendar_headers">Tue</div>
+                    <div class="calendar_headers">Wed</div>
+                    <div class="calendar_headers">Thu</div>
+                    <div class="calendar_headers">Fri</div>
+                    <div class="calendar_headers">Sat</div>
+                    <div class="calendar_headers">Sun</div>
+                    {% for date in calendar_dates %}
+                        {% if date[1] == True %}
+                            <button 
+                                type="button" 
+                                class="button3 calendar-btn" 
+                                data-date="{{ date[0] }}">
+                                {{ date[0].day }}
+                            </button>
+                        {% elif date[0].month == calendar_dates[10][0].month %}
+                            <button 
+                                type="button" 
+                                class="button2 calendar-btn" 
+                                data-date="{{ date[0] }}">
+                                {{ date[0].day }}
+                            </button>
+                        {% else %}
+                            <button 
+                                type="button" 
+                                class="button4 calendar-btn" 
+                                data-date="{{ date[0] }}">
+                                {{ date[0].day }}
+                            </button>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <!-- Add a submit button to finalize the selected dates -->
+                <div class=sub_button_container>
+                    <button
+                        id="submit-dates"
+                        class="right_aligned_btn">
+                        Book your space
+                    </button>
+                </div>
             </div>
         </div>
     </div>
