@@ -37,9 +37,26 @@
             <input type="date" id="start-date" name="start_date" required>
             <label for="end-date">Check-out:</label>
             <input type="date" id="end-date" name="end_date" required>
+            <input type="hidden" name="home_id" value="{{home.id}}">
             <button type="submit" class="button">Reserve Home</button>
         </form>
     </div>
+    <script>
+        document.getElementById('booking-form').addEventListener('submit', function(event) {
+            const startDateInput = document.getElementById('start-date');
+            const endDateInput = document.getElementById('end-date');
+    
+            // Convert to YYYY/MM/DD format
+            const formatToYYYYMMDD = (dateStr) => {
+                const [year, month, day] = dateStr.split('-');
+                return `${year}/${month}/${day}`;
+            };
+    
+            // Update input values to the new format
+            startDateInput.value = formatToYYYYMMDD(startDateInput.value);
+            endDateInput.value = formatToYYYYMMDD(endDateInput.value);
+        });
+    </script>
         <div class="calendar_buttons">
             <div class="calendar_headers">Mon</div>
             <div class="calendar_headers">Tue</div>

@@ -5,6 +5,8 @@ from lib.users_repository import UserRepository
 from lib.homes_repository import HomesRepository
 from flask import Flask, request, render_template, session, redirect, url_for
 from lib.database_connection import get_flask_database_connection
+from datetime import date
+from lib.requests_repository import RequestRepository
 
 # Create a new Flask app
 app = Flask(__name__)
@@ -69,7 +71,7 @@ def get_logout():
 
 @app.route('/create_home', methods=['GET'])
 def get_create_home():
-    return render_template('create_home.html')
+    return render_template('create_home.html', home=Home(None, None, None, None, None, None))
 
 @app.route('/show_home/<id>', methods=['GET'])
 def get_show_home(id):
@@ -81,31 +83,49 @@ def get_show_home(id):
     booked_dates = repository.fetch_booked_dates(id)
     return render_template('show_home.html', home=home, home_owner=user, month=range(1, 32), booked_dates=booked_dates, start_date=0)
 
-@app.route("/show_home/<id>", methods=["POST"])
-def book(id):
-    start_date = request.form.get("day")
-    if start_date == 1:
-        connection = get_flask_database_connection(app)
-        repository = HomesRepository(connection)
-        home = repository.find(id)
-        user = UserRepository(connection).get_username(home.user_id)
-        user = user.get('username')
-        booked_dates = repository.fetch_booked_dates(id)
-        return render_template('show_home.html', home=home, home_owner=user, month=range(1, 32), booked_dates=booked_dates, start_date=start_date)
-    else:
-        end_date = request.form.get("day")
-        print(f"start date: {start_date}, end date: {end_date}")
-        # Perform booking logic here (e.g., save to database, check availability, etc.)
-        
-    if not start_date or not end_date:
-        return "Please select both dates."
-
-        # Ensure the end date is not earlier than the start date
-        
-    if start_date > end_date:
-        return "Error: Check-out date must be after check-in date."
-    
-    return render_template("index.html")
+#@app.route("/show_home/<id>", methods=["POST"])
+#def book(id):
+#    start_date = request.form.get("day")
+#    if start_date == 1:
+#        connection = get_flask_database_connection(app)
+#        repository = HomesRepository(connection)
+#        home = repository.find(id)
+#        user = UserRepository(connection).get_username(home.user_id)
+#        user = user.get('username')
+#        booked_dates = repository.fetch_booked_dates(id)
+#        return render_template('show_home.html', home=home, home_owner=user, month=range(1, 32), booked_dates=booked_dates, start_date=start_date)
+#    else:
+#        end_date = request.form.get("day")
+#        print(f"start date: {start_date}, end date: {end_date}")
+#        # Perform booking logic here (e.g., save to database, check availability, etc.)
+#        
+#    if not start_date or not end_date:
+#        return "Please select both dates."
+#
+#        # Ensure the end date is not earlier than the start date
+#        
+#    if start_date > end_date:
+#        return "Error: Check-out date must be after check-in date."
+#    
+#    return render_template("index.html")
+  
+#@app.route("/show_home/<id>", methods=["POST"])
+#def book(id):
+#    if request.method == "POST":
+#        start_date = request.form.get("day")
+#        end_date = request.form.get("day")
+#
+#        if not start_date or not end_date:
+#            return "Please select both dates."
+#
+#        # Ensure the end date is not earlier than the start date
+#        if start_date > end_date:
+#            return "Error: Check-out date must be after check-in date."
+#
+#        # Perform booking logic here (e.g., save to database, check availability, etc.)
+#        return f"Booking successful from {start_date} to {end_date}!"
+#    
+#    return render_template("index.html")
 
 @app.route('/all_requests', methods=['GET'])
 def get_all_requests():
@@ -118,6 +138,7 @@ def get_all_requests():
 @app.route('/auth_requests', methods=['GET'])
 def get_auth_requests():
     return render_template('auth_request.html')
+
 
 @app.route('/create_home', methods = ['POST'])
 def create_home():
@@ -132,10 +153,25 @@ def create_home():
     price_per_night = request.form['price_per_night']
     home = Home(None, title, description, location, price_per_night, int(users_id))
     if not home.is_valid():
-        return render_template('login.html', home=home, errors=home.generate_errors()), 400
+        return render_template('create_home.html', home=home, errors=home.generate_errors()), 400
     repository.create_home(title, description, location, price_per_night, int(users_id))
     return redirect(url_for('get_index'))
 
+@app.route("/book", methods=["POST"])
+def book_home():
+    user_id = session.get('users_id')
+    db_connection = get_flask_database_connection(app)
+    request_repo = RequestRepository(db_connection)
+    # Extract form data
+    status = request.form.get("status")
+    date_submitted = request.form.get("date_submitted", date.today().strftime("%Y-%m-%d"))
+    home_id = request.form.get("home_id")
+    start_date = request.form.get("start_date")
+    end_date = request.form.get("end_date")
+    # Call the repository's `create_request` method
+    request_repo.create_request(status, date_submitted, home_id, user_id, start_date, end_date)
+    # Redirect the user to a confirmation page or another route
+    return redirect(url_for("get_index"))
 
 
 # These lines start the server if you run this file directly
