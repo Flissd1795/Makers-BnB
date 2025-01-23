@@ -18,10 +18,14 @@ class RequestRepository:
     Create a new booking request
     '''
     def create_request(self, status, date_submitted, home_id, user_id, start_date, end_date):
+        status ='unseen'
         self._connection.execute('INSERT INTO requests (status, date_submitted, home_id, user_id, start_date, end_date) VALUES (%s, %s, %s, %s, %s, %s)',
         [status, date_submitted, home_id, user_id, start_date, end_date])
         return None
-
+    
+    def confirm_request(self, request_id):
+        self._connection.execute('UPDATE requests SET status = "confirmed" WHERE id = %s', [request_id])
+        return None
     '''
     Find a single booking request by its id
     '''
