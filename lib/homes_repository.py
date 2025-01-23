@@ -1,5 +1,6 @@
 from lib.homes import Home
 import datetime
+import calendar
 
 class HomesRepository:
     def __init__(self, connection):
@@ -26,7 +27,8 @@ class HomesRepository:
         booked_dates = []
         for request in requests:
             iter_date = request["start_date"]
-            while iter_date < request["end_date"]:
+            end_date = request["end_date"]
+            while iter_date < end_date:
                 booked_dates.append(iter_date)
                 iter_date += datetime.timedelta(days=1)
         return booked_dates
@@ -38,3 +40,22 @@ class HomesRepository:
             item = Home(home["id"], home["title"], home["description"], home["location"], home["price_per_night"], home["user_id"])
             all_homes.append(item)
         return all_homes
+    
+    def load_calendar_page(self, booked_dates, offset=-299):
+        cal = calendar.TextCalendar()
+        today = datetime.date.today()
+
+        month_to_inspect = today.month + (offset % 12)
+        year_to_inspect = today.year + (offset // 12)
+
+        days_on_page = []
+        for date in booked_dates:
+            print(f'booked date: {date}')
+        for day in cal.itermonthdays3(year=year_to_inspect, month=month_to_inspect):
+            day_as_datetime = datetime.date(day[0], day[1], day[2])
+            is_booked = False
+            print(f'day as datetime: {day_as_datetime}')
+            if day_as_datetime in booked_dates:
+                is_booked = True
+            days_on_page.append((day_as_datetime, is_booked))
+        return days_on_page

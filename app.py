@@ -81,7 +81,15 @@ def get_show_home(id):
     user = UserRepository(connection).get_username(home.user_id)
     user = user.get('username')
     booked_dates = repository.fetch_booked_dates(id)
-    return render_template('show_home.html', home=home, home_owner=user, month=range(1, 32), booked_dates=booked_dates, start_date=0)
+    days_on_calendar_page = repository.load_calendar_page(booked_dates)
+    return render_template(
+        'show_home.html', 
+        home=home, 
+        home_owner=user, 
+        calendar_dates=days_on_calendar_page,
+        calendar_month=days_on_calendar_page[10][0].strftime("%B"),
+        start_date=0
+        )
 
 #@app.route("/show_home/<id>", methods=["POST"])
 #def book(id):

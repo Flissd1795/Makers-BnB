@@ -25,10 +25,12 @@
         <p>Price per night: {{home.price_per_night}}</p>
         <p>Owner: {{home_owner}}</p>
         <h1>Booked dates:</h1>
-        {% for date in booked_dates %}
-        <div class="booked_date">
-            {{date}}
-        </div>
+        {% for date in calendar_dates %}
+            {% if date[1] == True %}
+            <div class="booked_date">
+                {{date[0]}}
+            </div>
+            {% endif %}
         {% endfor %}
     <div class="check_in_container">
         <h1>Select your dates</h1>
@@ -57,6 +59,8 @@
             endDateInput.value = formatToYYYYMMDD(endDateInput.value);
         });
     </script>
+        <h1>{{calendar_month}}</h1>
+        <h2>{{calendar_dates[10][0].year}}</h2>
         <div class="calendar_buttons">
             <div class="calendar_headers">Mon</div>
             <div class="calendar_headers">Tue</div>
@@ -65,16 +69,18 @@
             <div class="calendar_headers">Fri</div>
             <div class="calendar_headers">Sat</div>
             <div class="calendar_headers">Sun</div>
-            {% for day in month -%}
-                {% if start_date == day -%}
-                    <button type="button" name="day" value="{{day}}" class="button2">{{day}}</button>
-                {% elif day in booked_dates -%}
-                        <button type="button" name=day value="{{day}}" class="button3">{{day}}</button>
-                {% else -%}
+            {% for date in calendar_dates %}
+                {% if date[1] == True %}
+                        <button type="button" name="{{date[0].day}}" value="{{date[0]}}" class="button3">{{date[0].day}}</button>
+                {% elif date[0].month == calendar_dates[10][0].month %}
                     <form action="" method="POST">
-                        <button type="submit" name="day" value="{{day}}" class="button2">{{day}}</button>
+                        <button type="submit" name="{{date[0].day}}" value="{{date[0]}}" class="button2">{{date[0].day}}</button>
                     </form>
-                {% endif -%}
+                {% else %}
+                    <form action="" method="POST">
+                        <button type="submit" name="{{date[0].day}}" value="{{date[0]}}" class="button4">{{date[0].day}}</button>
+                    </form>
+                {% endif %}
             {% endfor %}
         </div>
 </body>
