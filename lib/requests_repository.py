@@ -24,7 +24,7 @@ class RequestRepository:
         return None
     
     def confirm_request(self, request_id):
-        self._connection.execute('UPDATE requests SET status = "confirmed" WHERE id = %s', [request_id])
+        self._connection.execute("UPDATE requests SET status = 'confirmed' WHERE id = %s", [request_id])
         return None
     '''
     Find a single booking request by its id
