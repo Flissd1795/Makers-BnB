@@ -5,85 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Requests</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='calendar.css') }}">
-    <style>
-
-
-.heading {
-    font-size: 2em;
-    margin-bottom: 20px;
-    text-align: center;
-    color: #444;
-}
-
-.requests-container {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    align-items: flex-start;
-    flex-wrap: wrap;
-}
-
-.request-list {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    flex: 1;
-    min-width: 280px;
-    max-width: 400px;
-}
-
-.request-list h2 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-    color: #555;
-}
-
-.request-item {
-    margin-bottom: 15px;
-    padding: 15px;
-    background-color: #F1F1F1;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.request-item:hover {
-    background-color: #E2E2E2;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.individual-home {
-    margin: 20px 0;
-    padding: 15px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.individual-home a {
-    font-weight: bold;
-    font-size: 1.2em;
-    text-decoration: none;
-    color: #007BFF;
-    transition: color 0.3s;
-}
-
-.individual-home a:hover {
-    color: #0056b3;
-}
-
-.individual-home p {
-    margin: 5px 0;
-    color: #555;
-}
-
-.t-description, .t-location, .t-price {
-    font-size: 0.9em;
-}
-    </style>
 </head>
 <body>
     <div class="topnav">
@@ -111,19 +32,22 @@
             </a>
         </div>
     </div>
+
+    <div class="top_border"></div>
+
     <div class="container">
-        <h1 class="heading">Requests</h1>
+        <h1 class="a-heading">Requests</h1>
         <div class="requests-container">
             <!-- Requests Made -->
             <div class="request-list">
                 <h2>Requests Made</h2>
                 {% if requests_made %}
                     {% for request in requests_made %}
-                        <div class="request-item">
-                            <p>Home: {{ request['home_title'] }}</p>
-                            <p>Status: {{ request['status'] }}</p>
-                            <p>Start Date: {{ request['start_date'] }}</p>
-                            <p>End Date: {{ request['end_date'] }}</p>
+                        <div class="request-m-item">
+                            <p><strong>Home:</strong> {{ request['home_title'] }}</p>
+                            <p><strong>Status:</strong> {{ request['status'] }}</p>
+                            <p><strong>Start Date:</strong> Date: {{ request['start_date'] }}</p>
+                            <p><strong>End Date:</strong> Date: {{ request['end_date'] }}</p>
                         </div>
                     {% endfor %}
                 {% else %}
@@ -136,11 +60,11 @@
                 <h2>Requests Received</h2>
                 {% if requests_received %}
                     {% for request in requests_received %}
-                        <div class="request-item" onclick="location.href='/auth_request/{{ request.request_id }}';"> 
-                            <p>Home: {{ request['home_title'] }}</p>
-                            <p>Status: {{ request['status'] }}</p>
-                            <p>Start Date: {{ request['start_date'] }}</p>
-                            <p>End Date: {{ request['end_date'] }}</p>
+                        <div class="request-r-item" onclick="location.href='/auth_request/{{ request.request_id }}';"> 
+                            <p><strong>Home:</strong> {{ request['home_title'] }}</p>
+                            <p><strong>Status:</strong> {{ request['status'] }}</p>
+                            <p><strong>Start Date:</strong> Date: {{ request['start_date'] }}</p>
+                            <p><strong>End Date:</strong> Date: {{ request['end_date'] }}</p>
                         </div>
                     {% endfor %}
                 {% else %}
@@ -149,7 +73,7 @@
             </div>
         </div>
         <!-- Listings Section -->
-        <h2 class="heading">Your Listings</h2>
+        <h2 class="a-heading">Your Listings</h2>
         {% if homes %}
             {% for home in homes|reverse %}
                 <article class="individual-home">
