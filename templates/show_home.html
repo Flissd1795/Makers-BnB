@@ -6,37 +6,39 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='calendar.css') }}">
 </head>
 <body>
+
     <div class="topnav">
         <div class="logo">
-            <img src="/static/1200x600wa4.png" alt="Makers BnB Logo">
+            <img src="/static/images/1200x600wa4.png" alt="Makers BnB Logo">
             <div class="logo-text">
-                <img src="/static/Makers_bnb_text.png" alt="Makers BnB Text">
+                <img src="/static/images/Makers_bnb_text.png" alt="Makers BnB Text">
             </div>
         </div>
         <div class="menu">
             <a href="/index">
             <div class="logo-text">
-                <img src="/static/All homes.png" alt="All homes img">
+                <img src="/static/images/All homes.png" alt="All homes img">
             </div>
             </a>
             <a href="/all_requests">
                 <div class="logo-text">
-                    <img src="/static/request.png" alt="Request img">
+                    <img src="/static/images/request.png" alt="Request img">
                 </div>
             </a>
             <a href="/logout">
                 <div class="logo-text">
-                    <img src="/static/Logout.png" alt="Logout img">
+                    <img src="/static/images/Logout.png" alt="Logout img">
                 </div>
             </a>
         </div>
     </div>
+
     <div class="top_border"></div>
     <div class="page_container">
         <div class="content_container">
             <div class="description_container">
                 <div class="property_pic_container">
-                    <img src="/static/example_room.jpg" alt="example room">
+                    <img src="/static/images/example_room.jpg" alt="example room">
                 </div>
                 <div class="title_container">
                     <h1>{{home.title}}</h1>

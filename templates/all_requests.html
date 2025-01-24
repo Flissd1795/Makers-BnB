@@ -4,58 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Requests</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='calendar.css') }}">
     <style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #F8F9FA;
-    color: #333;
-}
 
-.topnav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    padding: 10px 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.topnav .logo {
-    display: flex;
-    align-items: center;
-    color: white;
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
-.topnav .logo img {
-    width: 50px;
-    height: auto;
-    margin-right: 10px;
-}
-
-.topnav .menu {
-    display: flex;
-    gap: 20px;
-}
-
-.topnav .menu a {
-    color: white;
-    text-decoration: none;
-    padding: 10px;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.topnav .menu a:hover {
-    background-color: #ddd;
-    color: black;
-}
-
-.container {
-    padding: 20px;
-}
 
 .heading {
     font-size: 2em;
@@ -137,13 +88,27 @@ body {
 <body>
     <div class="topnav">
         <div class="logo">
-            <img src="/static/MakersBnB_logo.png" alt="MakersBnB Logo">
-            MakersBnB
+            <img src="/static/images/1200x600wa4.png" alt="Makers BnB Logo">
+            <div class="logo-text">
+                <img src="/static/images/Makers_bnb_text.png" alt="Makers BnB Text">
+            </div>
         </div>
         <div class="menu">
-            <a href="/index">All Homes</a>
-            <a href="/all_requests">Requests</a>
-            <a href="/logout">Logout</a>
+            <a href="/index">
+            <div class="logo-text">
+                <img src="/static/images/All homes.png" alt="All homes img">
+            </div>
+            </a>
+            <a href="/all_requests">
+                <div class="logo-text">
+                    <img src="/static/images/request.png" alt="Request img">
+                </div>
+            </a>
+            <a href="/logout">
+                <div class="logo-text">
+                    <img src="/static/images/Logout.png" alt="Logout img">
+                </div>
+            </a>
         </div>
     </div>
     <div class="container">
