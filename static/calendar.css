@@ -73,6 +73,13 @@ body {
     border-radius: 50px;
 }
 
+.property_pic_container_main img {
+    width: 80px; /* Reduce width to make it smaller */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 50px; /* Optional: Keep rounded corners */
+}
+
+
 .title_container {
     padding: 2%;
     border-radius: 8px;

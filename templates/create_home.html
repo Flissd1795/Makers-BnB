@@ -153,7 +153,7 @@
                 <input type="text" name="location" id="location" value="{{ home.location or '' }}" required>
 
                 <label for="price_per_night">Enter Price:</label>
-                <input type="number" name="price_per_night" id="price_per_night" value="{{ home.price_per_night or '' }}" required>
+                <input type="float" name="price_per_night" id="price_per_night" value="{{ home.price_per_night or '' }}" >
 
                 <input type="submit" value="List New Home">
             </form>
