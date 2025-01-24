@@ -35,3 +35,4 @@ def test_create_account_get_logged_in(db_connection, page, test_web_address):
     page.click("text=Login")
     h1_tag = page.locator("h1")
     expect(h1_tag).to_have_text("Welcome, abc")
+

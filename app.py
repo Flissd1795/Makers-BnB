@@ -30,7 +30,7 @@ def start_session():
 @app.route('/seed', methods=['GET'])
 def seed():
     connection = get_flask_database_connection(app)
-    connection.seed('seeds/music_web_app_html.sql')
+    connection.seed('seeds/makers_bnb.sql')
     return 'Database seeded'
 
 @app.route('/index', methods=['GET'])
