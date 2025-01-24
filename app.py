@@ -225,7 +225,7 @@ def book_home():
     request_repo = RequestRepository(db_connection)
     # Extract form data
     status = request.form.get("status")
-    date_submitted = request.form.get("date_submitted", date.today().strftime("%Y-%m-%d"))
+    date_submitted = date.today().strftime("%Y-%m-%d")
     home_id = request.form.get("home_id")
     start_date = request.form.get("start_date")
     end_date = request.form.get("end_date")

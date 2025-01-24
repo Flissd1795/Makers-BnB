@@ -8,12 +8,27 @@
 <body>
     <div class="topnav">
         <div class="logo">
-            <img src="/static/1200x600wa4.png" alt="MakersBnB Logo">
+            <img src="/static/1200x600wa4.png" alt="Makers BnB Logo">
+            <div class="logo-text">
+                <img src="/static/Makers_bnb_text.png" alt="Makers BnB Text">
+            </div>
         </div>
         <div class="menu">
-            <a href="/index">All homes</a>
-            <a href="/all_requests">Requests</a>
-            <a href="/logout">Logout</a>
+            <a href="/index">
+            <div class="logo-text">
+                <img src="/static/All homes.png" alt="All homes img">
+            </div>
+            </a>
+            <a href="/all_requests">
+                <div class="logo-text">
+                    <img src="/static/request.png" alt="Request img">
+                </div>
+            </a>
+            <a href="/logout">
+                <div class="logo-text">
+                    <img src="/static/Logout.png" alt="Logout img">
+                </div>
+            </a>
         </div>
     </div>
     <div class="top_border"></div>
@@ -78,120 +93,116 @@
                 </div>
                 <!-- Add a submit button to finalize the selected dates -->
                 <div class=sub_button_container>
-                    <button
-                        id="submit-dates"
-                        class="right_aligned_btn">
-                        Book your space
-                    </button>
+                    <form action="/book" method="POST">
+                        <input type="hidden" name="home_id" value="{{home.id}}">
+                        <input type="hidden" name="start_date" id="start_date_input" value="">
+                        <input type="hidden" name="end_date" id="end_date_input" value="">
+                        <button
+                            id="submit-dates"
+                            class="right_aligned_btn"
+                            type="submit">
+                            Book your space
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-
-
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            let startDate = localStorage.getItem('startDate') || null;
-            let endDate = localStorage.getItem('endDate') || null;
-    
             const calendarButtons = document.querySelectorAll('.calendar-btn');
-    
-            // Restore previously selected dates from localStorage
-            function restoreSelections() {
-                if (startDate || endDate) {
-                    updateCalendarSelection();
+            const submitButton = document.querySelector('.right_aligned_btn');
+            const storedStartDate = localStorage.getItem('startDate');
+            const storedEndDate = localStorage.getItem('endDate');
+        
+            // Initialize the start and end dates from local storage
+            let startDate = storedStartDate ? new Date(storedStartDate) : null;
+            let endDate = storedEndDate ? new Date(storedEndDate) : null;
+        
+            // Function to find the earliest `button3` after the start date
+            function getFirstButton3AfterStart() {
+                let firstButton3Date = null;
+                if (startDate) {
+                    calendarButtons.forEach(button => {
+                        const buttonDate = new Date(button.getAttribute('data-date'));
+                        if (
+                            button.classList.contains('button3') &&
+                            buttonDate >= startDate &&
+                            (!firstButton3Date || buttonDate < firstButton3Date)
+                        ) {
+                            firstButton3Date = buttonDate;
+                        }
+                    });
                 }
+                return firstButton3Date;
             }
-    
+        
+            // Function to update button styles
+            function updateCalendarHighlights() {
+                calendarButtons.forEach(button => {
+                    const buttonDate = new Date(button.getAttribute('data-date'));
+                    button.classList.remove('highlighted-start', 'highlighted-end', 'highlighted-range');
+                
+                    if (startDate && buttonDate.getTime() === startDate.getTime()) {
+                        button.classList.add('highlighted-start'); // Highlight start date
+                    }
+                    if (endDate && buttonDate.getTime() === endDate.getTime()) {
+                        button.classList.add('highlighted-end'); // Highlight end date
+                    }
+                    if (startDate && endDate && buttonDate > startDate && buttonDate < endDate) {
+                        button.classList.add('highlighted-range'); // Highlight range
+                    }
+                });
+            }
+
+            // Apply stored highlights on page load
+            updateCalendarHighlights();
+        
+            // Add click event listener to each calendar button
             calendarButtons.forEach(button => {
                 button.addEventListener('click', () => {
-                    const selectedDate = button.getAttribute('data-date');
-    
-                    if (!startDate || (startDate && endDate)) {
-                        // Set as start date if none is selected or both start andend dates are set
+                    const selectedDate = new Date(button.getAttribute('data-date'));
+                    const firstButton3Date = getFirstButton3AfterStart();
+                    submitButton.classList.add('disabled_submit_btn')
+                    if (!startDate || startDate && endDate) {
+                        // Set the selected date as the new start date
                         startDate = selectedDate;
-                        endDate = null; // Clear the end date when reselecting thestart date
-                    } else if (!endDate && new Date(selectedDate) > new Dat(startDate)) {
-                        // Set as end date if it is greater than the start date
+                        endDate = null; // Clear the end date
+                    } else if (firstButton3Date && selectedDate >= firstButton3Date) {
+                        // Reset if clicked date is after or equal to the earliest `button3` after the start date
+                        startDate = null;
+                        endDate = null;
+                    } else if (!endDate && selectedDate > startDate) {
+                        // Set the selected date as the end date if it is later than the start date
                         endDate = selectedDate;
+                        submitButton.classList.remove('disabled_submit_btn');
+                        document.getElementById("start_date_input").value = startDate.toISOString().split('T')[0]; // Format: YYYY-MM-DD
+                        document.getElementById("end_date_input").value = endDate.toISOString().split('T')[0];
                     } else {
-                        // If invalid selection (e.g., selecting an earlier datefor the end date), reset
+                        // Reset dates if invalid or new selection
                         startDate = selectedDate;
                         endDate = null;
                     }
-    
-                    // Save to localStorage
-                    localStorage.setItem('startDate', startDate || '');
-                    localStorage.setItem('endDate', endDate || '');
-    
-                    updateCalendarSelection();
-                });
-            });
-    
-            // Function to visually update the calendar buttons
-            function updateCalendarSelection() {
-                calendarButtons.forEach(button => {
-                    const buttonDate = button.getAttribute('data-date');
-                    button.classList.remove('selected-start', 'selected-end','selected-range');
-    
-                    if (buttonDate === startDate) {
-                        button.classList.add('selected-start');
-                    } else if (buttonDate === endDate) {
-                        button.classList.add('selected-end');
-                    } else if (
-                        startDate &&
-                        endDate &&
-                        new Date(buttonDate) > new Date(startDate) &&
-                        new Date(buttonDate) < new Date(endDate)
-                    ) {
-                        button.classList.add('selected-range');
+                
+                    // Store the dates in local storage or clear them if reset
+                    if (startDate) {
+                        localStorage.setItem('startDate', startDate.toISOString());
+                    } else {
+                        localStorage.removeItem('startDate');
                     }
+                
+                    if (endDate) {
+                        localStorage.setItem('endDate', endDate.toISOString());
+                    } else {
+                        localStorage.removeItem('endDate');
+                    }
+                
+                    // Update the button highlights immediately
+                    updateCalendarHighlights();
                 });
-            }
-    
-            // Submit button handler
-            const submitButton = document.getElementById('submit-dates');
-            submitButton.addEventListener('click', () => {
-                if (startDate && endDate) {
-                    console.log('Start Date:', startDate);
-                    console.log('End Date:', endDate);
-    
-                    // Add code here to submit the dates, e.g., via a form or AJAX
-                    // Example:
-                    // fetch('/submit-dates', {
-                    //     method: 'POST',
-                    //     headers: {
-                    //         'Content-Type': 'application/json',
-                    //     },
-                    //     body: JSON.stringify({ startDate, endDate }),
-                    // })
-                    // .then(response => response.json())
-                    // .then(data => console.log(data));
-                } else {
-                    alert('Please select both a start and end date.');
-                }
             });
-    
-            // Restore selections on page load
-            restoreSelections();
         });
-    </script>
-    <script>
-        //    document.getElementById('booking-form').addEventListener('submit',function(event) {
-        //        const startDateInput = document.getElementById('start-date');
-        //        const endDateInput = document.getElementById('end-date');
-        //
-        //        // Convert to YYYY/MM/DD format
-        //        const formatToYYYYMMDD = (dateStr) => {
-        //            const [year, month, day] = dateStr.split('-');
-        //            return `${year}/${month}/${day}`;
-        //        };
-        //
-        //        // Update input values to the new format
-        //        startDateInput.value = formatToYYYYMMDD(startDateInput.value);
-        //        endDateInput.value = formatToYYYYMMDD(endDateInput.value);
-        //    });
+
     </script>
 </body>
 </html>
