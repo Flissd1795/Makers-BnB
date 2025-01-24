@@ -62,12 +62,12 @@ def test_generate_errors_location():
     assert home.generate_errors() == ['Location is required']
 
 def test_is_invalid_price_per_night_empty():
-    home = Home(1, 'test_title', 'test_description', 'test_location', None, 'test_user_id')
+    home = Home(1, 'test_title', 'test_description', 'test_location', "", 'test_user_id')
     assert home.is_valid() == False
 
 def test_generate_errors_price_per_night_empty():
-    home = Home(1, 'test_title', 'test_description', 'test_location', None, 'test_user_id')
-    assert home.generate_errors() == ['Price per night must be a number, got NoneType']
+    home = Home(1, 'test_title', 'test_description', 'test_location', "", 'test_user_id')
+    assert home.generate_errors() == ['Price per night is required', 'Price per night must be a positive number']
 
 def test_is_invalid_price_per_night_not_digit():
     home = Home(1, 'test_title', 'test_description', 'test_location', 'not_digit', 'test_user_id')
@@ -75,7 +75,7 @@ def test_is_invalid_price_per_night_not_digit():
 
 def test_generate_errors_price_per_night_not_digit():
     home = Home(1, 'test_title', 'test_description', 'test_location', 'not_digit', 'test_user_id')
-    assert home.generate_errors() == ['Price per night must be a number, got str']
+    assert home.generate_errors() == ['Price per night must be a positive number']
 
 def test_is_invalid_price_per_night_negative():
     home = Home(1, 'test_title', 'test_description', 'test_location', -1, 'test_user_id')
