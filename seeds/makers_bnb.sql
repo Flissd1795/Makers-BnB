@@ -45,7 +45,7 @@ INSERT INTO users (username, email, password) VALUES ('test_username', 'test@ema
 INSERT INTO users (username, email, password) VALUES ('test_username2', 'test2@email.com', 'test_password2');
 
 INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Hotel room I found the key for', 'This wonderful room has an amazing city view. There is one ensuite bathroom, and three leopards. I do not know how they got in.', 'Central London (most of the time)', 100, 1);
-INSERT INTO homes (title, description, location, price_per_night, user_id, image) VALUES ('The cave', 'Damp and smelly', 'Wales', 100, 2);
+INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('The cave', 'Damp and smelly', 'Wales', 100, 2);
 INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Garys garage', 'Room for more than a car', 'Front of Garys house', 1000, 2);
 INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Steves shed', 'Better than Garys garage', 'Back of Steves house', 100, 2);
 INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Barrys basement', 'Dark and dingy', 'At the bottom', 50, 2);
