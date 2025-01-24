@@ -41,5 +41,9 @@ def test_find_all(db_connection):
     homes = repository.find_all(1)
     assert str(homes) == '[Home(1, Hotel room I found the key for, This wonderful room has an amazing city view. There is one ensuite bathroom, and three leopards. I do not know how they got in., Central London (most of the time), 100.0, 1)]'
     
-
-    
+def test_load_calendar_page(db_connection):
+    db_connection.seed("seeds/makers_bnb.sql")
+    repository = HomesRepository(db_connection)
+    booked_dates = repository.fetch_booked_dates(2)
+    days_on_calendar_page = repository.load_calendar_page(booked_dates, offset=0)
+    assert str(days_on_calendar_page) == '[(datetime.date(2024, 12, 30), False), (datetime.date(2024, 12, 31), False), (datetime.date(2025, 1, 1), False), (datetime.date(2025, 1, 2), False), (datetime.date(2025, 1, 3), False), (datetime.date(2025, 1, 4), False), (datetime.date(2025, 1, 5), False), (datetime.date(2025, 1, 6), False), (datetime.date(2025, 1, 7), False), (datetime.date(2025, 1, 8), False), (datetime.date(2025, 1, 9), False), (datetime.date(2025, 1, 10), False), (datetime.date(2025, 1, 11), False), (datetime.date(2025, 1, 12), False), (datetime.date(2025, 1, 13), False), (datetime.date(2025, 1, 14), False), (datetime.date(2025, 1, 15), False), (datetime.date(2025, 1, 16), False), (datetime.date(2025, 1, 17), False), (datetime.date(2025, 1, 18), False), (datetime.date(2025, 1, 19), False), (datetime.date(2025, 1, 20), False), (datetime.date(2025, 1, 21), False), (datetime.date(2025, 1, 22), False), (datetime.date(2025, 1, 23), False), (datetime.date(2025, 1, 24), False), (datetime.date(2025, 1, 25), False), (datetime.date(2025, 1, 26), False), (datetime.date(2025, 1, 27), False), (datetime.date(2025, 1, 28), False), (datetime.date(2025, 1, 29), False), (datetime.date(2025, 1, 30), False), (datetime.date(2025, 1, 31), False), (datetime.date(2025, 2, 1), False), (datetime.date(2025, 2, 2), False)]'
