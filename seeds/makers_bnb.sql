@@ -46,19 +46,19 @@ INSERT INTO users (username, email, password) VALUES ('test_username2', 'test2@e
 
 INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Hotel room I found the key for', 'This wonderful room has an amazing city view. There is one ensuite bathroom, and three leopards. I do not know how they got in.', 'Central London (most of the time)', 100, 1);
 INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('The cave', 'Damp and smelly', 'Wales', 100, 2);
-INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Garys garage', 'Room for more than a car', 'Front of Garys house', 1000, 2);
-INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Steves shed', 'Better than Garys garage', 'Back of Steves house', 100, 2);
-INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Barrys basement', 'Dark and dingy', 'At the bottom', 50, 2);
-INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Carls climbingframe', 'Lots of fun to be had', 'Outside somewhere', 100, 2);
-INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Andys attic', 'Large and lofty', 'At the top', 100, 2);
-INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Grahams garden', 'Lots of room for activities', 'The back of Grahams house', 10, 2);
-INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Tonys toilet', 'Fragrant', 'The bog', 3000, 2);
-INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Freddies fruitbowl', 'Small and cosy', 'Kitchen counter', 200, 2);
-INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Penelopes plane', 'Cosy stay in the cockpit', 'In the air', 30, 2);
-INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Alanas allotment', 'Lovely fruit and veg', 'In a field', 100, 2);
+INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Gary''s garage', 'Room for more than a car', 'Front of Garys house', 1000, 2);
+INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Steve''s shed', 'Better than Garys garage', 'Back of Steves house', 100, 2);
+INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Barry''s basement', 'Dark and dingy', 'At the bottom', 50, 2);
+INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Carl''s climbingframe', 'Lots of fun to be had', 'Outside somewhere', 100, 2);
+INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Andy''s attic', 'Large and lofty', 'At the top', 100, 2);
+INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Graham''s garden', 'Lots of room for activities', 'The back of Grahams house', 10, 2);
+INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Tony''s toilet', 'Fragrant', 'The bog', 3000, 2);
+INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Freddie''s fruitbowl', 'Small and cosy', 'Kitchen counter', 200, 2);
+INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Penelope''s plane', 'Cosy stay in the cockpit', 'In the air', 30, 2);
+INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Alana''s allotment', 'Lovely fruit and veg', 'In a field', 100, 2);
 INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Love island villa', 'Great spot for a fireside chat', 'Spain', 100, 2);
-INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Ilonas igloo', 'Bit chilly', 'North Pole', 70, 2);
-INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Torys treehouse', 'Dont visit if scared of heights', 'In a tree', 500, 2);
+INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Ilona''s igloo', 'Bit chilly', 'North Pole', 70, 2);
+INSERT INTO homes (title, description, location, price_per_night, user_id) VALUES ('Tory''s treehouse', 'Dont visit if scared of heights', 'In a tree', 500, 2);
 
 INSERT INTO requests (status, date_submitted, home_id, user_id, start_date, end_date) VALUES ('unseen', '2000-01-01', '1', '1', '2000-02-05', '2000-02-07');
 INSERT INTO requests (status, date_submitted, home_id, user_id, start_date, end_date) VALUES ('confirmed', '2000-01-01', '2', '2', '2000-02-05', '2000-02-07');
