@@ -22,11 +22,23 @@ def test_find_request(db_connection):
     assert request == "Request(1, unseen, 2000-01-01, 1, 1, 2000-02-05, 2000-02-07)"
     # check this is the same as JOINS on db
 
+def test_find_request_non_existent(db_connection):
+    db_connection.seed("seeds/makers_bnb.sql")
+    repository = RequestRepository(db_connection)
+    request = repository.find_request(3)
+    assert request == None
+
 def test_update_request_dates(db_connection):
     db_connection.seed("seeds/makers_bnb.sql")
     repository = RequestRepository(db_connection)
     request = repository.update_request_dates('2000-02-01', '2000-02-15', 1)
     assert request == "Request(1, unseen, 2000-01-01, 1, 1, 2000-02-01, 2000-02-15)"
+
+def test_update_request_dates_none(db_connection):
+    db_connection.seed("seeds/makers_bnb.sql")
+    repository = RequestRepository(db_connection)
+    request = repository.update_request_dates(None, None, 1)
+    assert request == "Request(1, unseen, 2000-01-01, 1, 1, None, None)"
     
 def test_delete_request(db_connection):
     db_connection.seed("seeds/makers_bnb.sql")
@@ -46,3 +58,34 @@ def test_list_requests_by_user_id_when_user_has_no_requests(db_connection):
     repository = RequestRepository(db_connection)
     request = repository.list_requests_by_user_id(3)
     assert request == []
+
+def test_confirm_request(db_connection):
+    db_connection.seed("seeds/makers_bnb.sql") 
+    repository = RequestRepository(db_connection)
+    request = repository.confirm_request(1)
+    request = repository.find_request(1)
+    assert request == "Request(1, confirmed, 2000-01-01, 1, 1, 2000-02-05, 2000-02-07)"
+
+def test_deny_request(db_connection):
+    db_connection.seed("seeds/makers_bnb.sql") 
+    repository = RequestRepository(db_connection)
+    request = repository.deny_request(1)
+    assert request == None
+
+def test_list_requests_by_homeowner_id(db_connection):
+    db_connection.seed("seeds/makers_bnb.sql") 
+    repository = RequestRepository(db_connection)
+    request = repository.list_requests_by_home_owner(1)
+    assert str(request) == "[{'request_id': 1, 'status': 'unseen', 'date_submitted': datetime.date(2000, 1, 1), 'start_date': datetime.date(2000, 2, 5), 'end_date': datetime.date(2000, 2, 7), 'home_title': 'Hotel room I found the key for'}]"
+
+def test_list_requests_by_homeowner_id_when_homeowner_has_no_requests(db_connection):
+    db_connection.seed("seeds/makers_bnb.sql") 
+    repository = RequestRepository(db_connection)
+    request = repository.list_requests_by_home_owner(3)
+    assert request == []
+
+def test_get_request_details_none(db_connection):
+    db_connection.seed("seeds/makers_bnb.sql") 
+    repository = RequestRepository(db_connection)
+    request = repository.get_request_details(3)
+    assert request == None

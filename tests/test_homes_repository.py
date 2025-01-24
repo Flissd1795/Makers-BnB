@@ -1,5 +1,6 @@
 from lib.homes_repository import HomesRepository
 from lib.homes import Home
+from datetime import datetime
 
 def test_show_all_homes(db_connection):
     db_connection.seed("seeds/makers_bnb.sql")
@@ -22,5 +23,23 @@ def test_find_home_by_id(db_connection):
     homes = repository.find(1)
     assert str(homes) == 'Home(1, Hotel room I found the key for, This wonderful room has an amazing city view. There is one ensuite bathroom, and three leopards. I do not know how they got in., Central London (most of the time), 100.0, 1)'
 
+def test_booked_dates(db_connection):
+    db_connection.seed("seeds/makers_bnb.sql")
+    repository = HomesRepository(db_connection)
+    booked_dates = repository.fetch_booked_dates(1)
+    assert str(booked_dates) == "[]"
+
+def test_booked_dates_with_bookings(db_connection):
+    db_connection.seed("seeds/makers_bnb.sql")
+    repository = HomesRepository(db_connection)
+    booked_dates = repository.fetch_booked_dates(2)
+    assert str(booked_dates) == "[datetime.date(2000, 2, 5), datetime.date(2000, 2, 6)]"
+
+def test_find_all(db_connection):
+    db_connection.seed("seeds/makers_bnb.sql")
+    repository = HomesRepository(db_connection)
+    homes = repository.find_all(1)
+    assert str(homes) == '[Home(1, Hotel room I found the key for, This wonderful room has an amazing city view. There is one ensuite bathroom, and three leopards. I do not know how they got in., Central London (most of the time), 100.0, 1)]'
+    
 
     
