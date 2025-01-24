@@ -191,15 +191,15 @@ def confirm_request():
     repository = RequestRepository(connection)
     request_id = request.form['request_id']
     repository.confirm_request(request_id)
-    return redirect(url_for('get_all_requests'))
+    return redirect(url_for('get_auth_requests', id=request_id))  # Redirect back to the same page
 
 @app.route('/deny', methods=['POST'])
 def deny_request():
     connection = get_flask_database_connection(app)
     repository = RequestRepository(connection)
     request_id = request.form['request_id']
-    repository.delete_request(request_id)
-    return redirect(url_for('get_all_requests'))
+    repository.deny_request(request_id)  # Add deny logic in repository
+    return redirect(url_for('get_auth_requests', id=request_id))  # Redirect back to the same page
 
 @app.route('/create_home', methods = ['POST'])
 def create_home():

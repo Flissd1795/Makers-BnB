@@ -128,14 +128,19 @@
     <!-- Confirmation Section -->
     <div class="check_in_container">
         <h1>Respond to Request</h1>
-        <form action="/confirm" method="post">
-            <input type="hidden" name="request_id" value="{{ request.id }}">
-            <button type="submit">Confirm Request</button>
-        </form>
-        <form action="/deny" method="post">
-            <input type="hidden" name="request_id" value="{{ request.id }}">
-            <button type="submit" class="deny">Deny Request</button>
-        </form>
+        {% if request.status == 'unseen' %}
+            <form action="/confirm" method="post">
+                <input type="hidden" name="request_id" value="{{ request.id }}">
+                <button type="submit">Confirm Request</button>
+            </form>
+            <form action="/deny" method="post">
+                <input type="hidden" name="request_id" value="{{ request.id }}">
+                <button type="submit" class="deny">Deny Request</button>
+            </form>
+        {% elif request.status == 'confirmed' %}
+            <p><strong>Status:</strong> Request confirmed</p>
+        {% elif request.status == 'denied' %}
+            <p><strong>Status:</strong> Request denied</p>
+        {% endif %}
     </div>
-</body>
-</html>
+    

@@ -26,6 +26,11 @@ class RequestRepository:
     def confirm_request(self, request_id):
         self._connection.execute("UPDATE requests SET status = 'confirmed' WHERE id = %s", [request_id])
         return None
+    
+    def deny_request(self, request_id):
+        self._connection.execute("UPDATE requests SET status = 'denied' WHERE id = %s", [request_id])
+        return None
+
     '''
     Find a single booking request by its id
     '''
