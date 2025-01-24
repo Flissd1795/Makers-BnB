@@ -3,132 +3,59 @@
 <head>
     <title>MakersBnB - Requests Received</title>
     <meta charset="utf-8">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #F4F4F4;
-            color: #333;
-        }
-        /* Top Navigation Bar */
-        .topnav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #333;
-            padding: 15px 20px;
-        }
-        .topnav .logo {
-            display: flex;
-            align-items: center;
-            color: white;
-            font-size: 1.5em;
-            font-weight: bold;
-        }
-        .topnav .logo img {
-            width: 40px;
-            height: auto;
-            margin-right: 10px;
-        }
-        .topnav .menu a {
-            color: white;
-            text-decoration: none;
-            margin-left: 15px;
-            font-size: 1em;
-            padding: 10px 15px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .topnav .menu a:hover {
-            background-color: #ddd;
-            color: #333;
-            border-radius: 5px;
-        }
-        /* Page Containers */
-        .title_container {
-            text-align: center;
-            margin: 30px 0;
-        }
-        .title_container h1 {
-            font-size: 2em;
-            margin: 0;
-            color: #333;
-        }
-        .description_container {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px auto;
-            max-width: 600px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .description_container p {
-            font-size: 1.1em;
-            margin: 10px 0;
-        }
-        /* Check-in/Confirmation Section */
-        .check_in_container {
-            text-align: center;
-            margin: 30px auto;
-        }
-        .check_in_container h1 {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-        .check_in_container form {
-            display: inline-block;
-            margin: 0 10px;
-        }
-        .check_in_container button {
-            background-color: #28A745;
-            color: white;
-            font-size: 1em;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .check_in_container button:hover {
-            background-color: #218838;
-        }
-        .check_in_container button.deny {
-            background-color: #DC3545;
-        }
-        .check_in_container button.deny:hover {
-            background-color: #C82333;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='calendar.css') }}">
+
 </head>
 <body>
     <!-- Top Navigation -->
     <div class="topnav">
         <div class="logo">
-            <img src="/static/MakersBnB_logo.png" alt="MakersBnB Logo"> MakersBnB
+            <img src="/static/images/1200x600wa4.png" alt="Makers BnB Logo">
+            <div class="logo-text">
+                <img src="/static/images/Makers_bnb_text.png" alt="Makers BnB Text">
+            </div>
         </div>
         <div class="menu">
-            <a href="/index">All Homes</a>
-            <a href="/all_requests">Requests</a>
-            <a href="/logout">Logout</a>
+            <a href="/index">
+            <div class="logo-text">
+                <img src="/static/images/All homes.png" alt="All homes img">
+            </div>
+            </a>
+            <a href="/all_requests">
+                <div class="logo-text">
+                    <img src="/static/images/request.png" alt="Request img">
+                </div>
+            </a>
+            <a href="/logout">
+                <div class="logo-text">
+                    <img src="/static/images/Logout.png" alt="Logout img">
+                </div>
+            </a>
         </div>
     </div>
-    <!-- Page Heading -->
-    <div class="title_container">
-        <h1>Request Received</h1>
-    </div>
+
+    <div class="top_border"></div>
+
     <!-- Description Section -->
+    <div class="content_container">
     <div class="description_container">
-        <p><strong>Home:</strong> {{ request.home_title }} ({{ request.home_location }})</p>
+        <div class="property_pic_container">
+            <img src="/static/images/example_room.jpg" alt="example room">
+        </div>
+        <div class="title_container">
+            <h1><strong>{{ request.home_title }}</strong></h1>
+        </div>
+        <p><strong>Location:</strong> {{ request.home_location }}</p>
         <p><strong>Requested By:</strong> {{ request.requester_username }} ({{ request.requester_email }})</p>
         <p><strong>Date Submitted:</strong> {{ request.date_submitted }}</p>
         <p><strong>Check-in:</strong> {{ request.start_date }}</p>
         <p><strong>Check-out:</strong> {{ request.end_date }}</p>
     </div>
     <!-- Confirmation Section -->
-    <div class="check_in_container">
+    <div class="calendar_container">
         <h1>Respond to Request</h1>
         {% if request.status == 'unseen' %}
+            <div class="check_in_container">
             <form action="/confirm" method="post">
                 <input type="hidden" name="request_id" value="{{ request.id }}">
                 <button type="submit">Confirm Request</button>
@@ -142,5 +69,8 @@
         {% elif request.status == 'denied' %}
             <p><strong>Status:</strong> Request denied</p>
         {% endif %}
+        </div>
     </div>
+</div>
+</body>
     

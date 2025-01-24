@@ -6,45 +6,48 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='calendar.css') }}">
 </head>
 <body>
+
     <div class="topnav">
         <div class="logo">
-            <img src="/static/1200x600wa4.png" alt="Makers BnB Logo">
+            <img src="/static/images/1200x600wa4.png" alt="Makers BnB Logo">
             <div class="logo-text">
-                <img src="/static/Makers_bnb_text.png" alt="Makers BnB Text">
+                <img src="/static/images/Makers_bnb_text.png" alt="Makers BnB Text">
             </div>
         </div>
         <div class="menu">
             <a href="/index">
             <div class="logo-text">
-                <img src="/static/All homes.png" alt="All homes img">
+                <img src="/static/images/All homes.png" alt="All homes img">
             </div>
             </a>
             <a href="/all_requests">
                 <div class="logo-text">
-                    <img src="/static/request.png" alt="Request img">
+                    <img src="/static/images/request.png" alt="Request img">
                 </div>
             </a>
             <a href="/logout">
                 <div class="logo-text">
-                    <img src="/static/Logout.png" alt="Logout img">
+                    <img src="/static/images/Logout.png" alt="Logout img">
                 </div>
             </a>
         </div>
     </div>
+    
     <div class="top_border"></div>
+
     <div class="page_container">
         <div class="content_container">
             <div class="description_container">
                 <div class="property_pic_container">
-                    <img src="/static/example_room.jpg" alt="example room">
+                    <img src="/static/images/example_room.jpg" alt="example room">
                 </div>
                 <div class="title_container">
                     <h1>{{home.title}}</h1>
                 </div>
-                <p>Description: {{home.description}}</p>
-                <p>Location: {{home.location}}</p>
-                <p>Price per night: &#163;{{home.price_per_night}}</p>
-                <p>Owner: {{home_owner}}</p>
+                <p>{{home.description}}</p>
+                <p><strong>Location:</strong> {{home.location}}</p>
+                <p><strong>Price per night:</strong> &#163;{{home.price_per_night}}</p>
+                <p><strong>Owner:</strong> {{home_owner}}</p>
             </div>
             <div class="calendar_container">
                 <h1></h1>
@@ -114,6 +117,7 @@
             const submitButton = document.querySelector('.right_aligned_btn');
             const storedStartDate = localStorage.getItem('startDate');
             const storedEndDate = localStorage.getItem('endDate');
+            submitButton.classList.add('disabled_submit_btn')
         
             // Initialize the start and end dates from local storage
             let startDate = storedStartDate ? new Date(storedStartDate) : null;
