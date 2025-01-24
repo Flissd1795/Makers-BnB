@@ -19,6 +19,7 @@ class UserRepository:
     Add a new user to the users database
     '''
     def create_user(self, username, email, password):
+        
         binary_password = password.encode("utf-8")
         hashed_password = hashlib.sha256(binary_password).hexdigest()
         self._connection.execute(
