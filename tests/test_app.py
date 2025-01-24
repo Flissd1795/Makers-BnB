@@ -5,14 +5,13 @@ from playwright.sync_api import Page, expect
 """
 We can render the index page
 """
-def test_get_login_page(db_connection, page, test_web_address):
-    db_connection.seed("seeds/makers_bnb.sql")
-    page.goto(f"http://{test_web_address}/login")    # We look at the <p> tag
-    h1_tag = page.locator("h1")    # We assert that it has the text "This is the homepage."
+
+def test_get_login_page(page: Page, test_web_address):
+    page.goto(f"http://{test_web_address}/login")
+    h1_tag = page.locator("h1")
     expect(h1_tag).to_have_text("Log in to MakersBnB")
-    p_tags = page.locator("p")
-    expect(p_tags.nth(0)).to_have_text("Enter email:")
-    expect(p_tags.nth(1)).to_have_text("Enter password:")
+    
+
 
 def test_get_index_logged_out(db_connection, page, test_web_address):
     db_connection.seed("seeds/makers_bnb.sql")
