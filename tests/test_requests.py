@@ -28,3 +28,8 @@ Requests can be represented as strings
 def test_stringifying():
     available_date = Request('1', 'Unseen', '2000-01-01', '1', '1', '2000-02-01', '2000-03-01')
     assert str(available_date) == "Request(1, Unseen, 2000-01-01, 1, 1, 2000-02-01, 2000-03-01)"
+
+def test_confirm_request():
+    request = Request('1', 'Unseen', '2000-01-01', '1', '1', '2000-02-01', '2000-03-01')
+    request.confirm_request()
+    assert request.status == 'confirmed'
