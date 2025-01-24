@@ -114,6 +114,7 @@
             const submitButton = document.querySelector('.right_aligned_btn');
             const storedStartDate = localStorage.getItem('startDate');
             const storedEndDate = localStorage.getItem('endDate');
+            submitButton.classList.add('disabled_submit_btn')
         
             // Initialize the start and end dates from local storage
             let startDate = storedStartDate ? new Date(storedStartDate) : null;
