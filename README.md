@@ -1,12 +1,20 @@
-# MakersBnB Python Project Seed
+# MakersBnB
+Full-Stack web application built using legacy code in a group project as part of Makers Academy bootcamp in January 2025.
 
-This repo contains the seed codebase for the MakersBnB project in Python (using 
-Flask and Pytest).
+# Overview
+MakersBnB is a web application replicating the core functionalities of the AirBnB platform.
 
-Someone in your team should fork this seed repo to their GitHub account.
-Everyone in the team should then clone this fork to their local machine to work on it.
+# Tech Stack
+Python, Flask, HTML, CSS, PostgreSQL, Playwright, Pytest
 
-> NOTE: If you encounter a `ModuleNotFound` error, deactivate and then reactivate your virtual env. If that doesn't help, please reach out to your coach.
+# Timeline
+5 days 
+
+# My Contributions
+Creation of classes, repositories and tests for: 
+   - Users, home and requests
+
+
 
 ## Setup
 
